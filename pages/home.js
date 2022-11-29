@@ -15,7 +15,6 @@ function home({ session }) {
   return (
     <div>
       <Main />
-      <Link href={{ pathname: '/account', query: { object: JSON.stringify(object) } }} />
     </div>
   )
 }
