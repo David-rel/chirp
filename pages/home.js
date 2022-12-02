@@ -1,16 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
-import { useSession } from '@supabase/auth-helpers-react'
 import Main from '../components/Main'
 
 
-function home({ session }) {
+function home() {
 
-    session = useSession()
-
-    const object = {
-        session: useSession(),
-      };
+    
 
   return (
     <div>
