@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Avatar from './Avatar'
+import Sidebar from './Sidebar'
 
 
 export default function Account({ session }) {
@@ -66,6 +67,8 @@ export default function Account({ session }) {
   }
 
   return (
+    <div class="flex w- h-12 py-4">
+        <Sidebar />
     <div className="form-widget">
       <Avatar
         uid={user.id}
@@ -115,5 +118,7 @@ export default function Account({ session }) {
         </button>
       </div>
     </div>
+    </div>
+
   )
 }

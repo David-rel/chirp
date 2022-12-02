@@ -9,10 +9,9 @@ function Account({ session }) {
     session = useSession()
 
   return (
-    <div>
+    <div class="flex">
+        
         <YourAccount session={session}/>
-        <Link href="/home" >Home</Link>
-
     </div>
   )
 }
