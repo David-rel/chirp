@@ -4,9 +4,9 @@ import Sidebar from '../components/Main'
 import YourAccount from '../components/YourAccount'
 import Link from 'next/link'
 
-function Account() {
+function Account({ session }) {
 
-    const session = useSession()
+    session = useSession()
 
   return (
     <div class="flex">

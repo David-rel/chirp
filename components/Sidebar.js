@@ -2,9 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import { useSession } from '@supabase/auth-helpers-react'
 
-function Sidebar() {
+function Sidebar({ session }) {
 
-  const session = useSession()
+  session = useSession()
 
   const object = {
     session: session
