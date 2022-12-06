@@ -4,9 +4,9 @@ import Sidebar from '../components/Main'
 import YourAccount from '../components/YourAccount'
 import Link from 'next/link'
 
-function Account({ session }) {
+function Account() {
 
-    session = useSession()
+    const session = useSession()
 
   return (
     <div class="flex">
@@ -18,4 +18,3 @@ function Account({ session }) {
 
 export default Account
 
-//        <Link href={{ pathname: '/account', query: { object: JSON.stringify(object) } }} />

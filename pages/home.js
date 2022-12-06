@@ -4,11 +4,13 @@ import Main from '../components/Main'
 import { useSession } from '@supabase/auth-helpers-react'
 
 
-function home({ session }) {
+function home() {
+
+  const session = useSession()
 
   return (
     <div>
-      <Main session={session}/>
+      <Main />
     </div>
   )
 }
