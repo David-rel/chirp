@@ -6,7 +6,8 @@ import Link from 'next/link'
 
 function Account() {
 
-  const session = useSession()
+
+
 
   return (
     <div class="flex">

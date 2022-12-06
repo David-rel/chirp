@@ -3,13 +3,13 @@ import Link from 'next/link'
 import React from 'react'
 import Sidebar from './Sidebar'
 
-function Main({ session }) {
+function Main() {
 
-    session = useSession()
+    const session = useSession()
 
   return (
     <div class="flex">
-    <Sidebar session={session}/>
+    <Sidebar />
     <div class="w-4/5 border border-gray-600 h-auto  border-t-0">             
                 <div class="flex">
                     <div class="flex-1 m-2">

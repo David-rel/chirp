@@ -3,11 +3,13 @@ import Link from 'next/link'
 import Main from '../components/Main'
 
 
-function home({ session }) {
+function home() {
+
+  const session = useSession()
 
   return (
     <div>
-      <Main session={session}/>
+      <Main />
     </div>
   )
 }
