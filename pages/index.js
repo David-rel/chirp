@@ -1,6 +1,7 @@
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import House from './home'
+import Account from './account'
 
 const Home = () => {
   const session = useSession()
@@ -11,7 +12,7 @@ const Home = () => {
       {!session ? (
         <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
       ) : (
-        <House />
+        <Account session={session}/>
       )}
     </div>
   )
