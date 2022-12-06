@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useUser, useSupabaseClient, useSession } from '@supabase/auth-helpers-react'
 
 
-export default function Avatar({ session, url, size, onUpload }) {
+export default function Avatar({ url, size, onUpload }) {
   const supabase = useSupabaseClient()
   const [avatarUrl, setAvatarUrl] = useState(null)
   const [uploading, setUploading] = useState(false)
   const [loading, setLoading] = useState(true)
   const [, setGetUser] = useState(null)
   const user = useUser()
+  const session = useSession()
 
 
   useEffect(() => {

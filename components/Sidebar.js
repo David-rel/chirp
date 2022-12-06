@@ -42,14 +42,15 @@ function Sidebar({ session }) {
               <svg class="mr-4 h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
               Profile
             </Link>
-                
+                <Link href="/home">
                 <button class="bg-green-600 w-48 mt-5 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-full">
                 Chirp
               </button>
+              </Link>
           </nav>
               
         <div class="flex-shrink-0 flex hover:bg-blue-00 rounded-full p-4 mt-12 mr-2">
-          <a href="#" class="flex-shrink-0 group block">
+          <Link href="/account" class="flex-shrink-0 group block">
             <div class="flex items-center">
               <div>
                 <img class="inline-block h-10 w-10 rounded-full" src="https://img.freepik.com/premium-vector/abstract-modernd-web3-crypto-blockchain-infinity-square-3d-blue-gradient-dark-background-cryptoc_8169-530.jpg?w=2000" alt="test" />
@@ -63,7 +64,7 @@ function Sidebar({ session }) {
                 </p>
               </div>
             </div>
-          </a>
+          </Link>
         </div>
 
     </div>  )

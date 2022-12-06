@@ -6,8 +6,6 @@ import { useSession } from '@supabase/auth-helpers-react'
 
 function home({ session }) {
 
-    session = useSession()
-
   return (
     <div>
       <Main session={session}/>

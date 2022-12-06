@@ -79,7 +79,6 @@ export default function Account() {
       <Sidebar />
   <div className="form-widget">
     <Avatar
-      session={session}
       url={avatar_url}
       size={150}
       onUpload={(url) => {
