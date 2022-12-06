@@ -9,6 +9,7 @@ export default function Avatar({ url, size, onUpload }) {
   const session = useSession()
 
   useEffect(() => {
+    getProfile()
     if (url) downloadImage(url)
   }, [url])
 
@@ -57,9 +58,9 @@ export default function Avatar({ url, size, onUpload }) {
 
 
 
-  useEffect(() => {
-    getProfile()
-  }, [session])
+  // useEffect(() => {
+  //   getProfile()
+  // }, [session])
 
   async function getProfile() {
     try {
