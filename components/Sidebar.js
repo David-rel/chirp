@@ -1,10 +1,47 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useSession } from '@supabase/auth-helpers-react'
+import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import Avatar from './Avatar'
+import SidebarAvatar from './SidebarAvatar'
 
 function Sidebar({ session }) {
+  const supabase = useSupabaseClient()
+  const user = useUser()
+  const [loading, setLoading] = useState(true)
+  const [username, setUsername] = useState(null)
+  const [avatar_url, setAvatarUrl] = useState(null)
+  const [full_name, setFullName] = useState(null)
 
-  session = useSession()
+ async function getProfile() {
+    try {
+      setLoading(true)
+
+      let { data, error, status } = await supabase
+        .from('profiles')
+        .select(`username, avatar_url, full_name`)
+        .eq('id', user.id)
+        .single()
+
+      if (error && status !== 406) {
+        throw error
+      }
+
+      if (data) {
+        setUsername(data.username)
+        setAvatarUrl(data.avatar_url)
+        setFullName(data.full_name);
+      }
+    } catch (error) {
+      alert('Error loading user data!')
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  } 
+
+  useEffect(() => {
+    getProfile()
+  }, [session])
 
   return (
 <div className="w-1.5/5 text-white h-12 py-2">
@@ -49,21 +86,26 @@ function Sidebar({ session }) {
           <Link href="/" className="flex-shrink-0 group block">
             <div className="flex items-center">
               <div>
-                <img className="inline-block h-10 w-10 rounded-full" src="https://img.freepik.com/premium-vector/abstract-modernd-web3-crypto-blockchain-infinity-square-3d-blue-gradient-dark-background-cryptoc_8169-530.jpg?w=2000" alt="test" />
+              <SidebarAvatar
+                uid={user.id}
+                url={avatar_url}
+                size={50}
+              />
               </div>
               <div className="ml-3">
                 <p className="text-base leading-6 font-medium text-white">
-                  David Fales
+                  {full_name}
                 </p>
                 <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
-                  @_David_Rel
+                  @{username}
                 </p>
               </div>
             </div>
           </Link>
         </div>
 
-    </div>  )
+    </div>  
+    )
 }
 
 export default Sidebar
