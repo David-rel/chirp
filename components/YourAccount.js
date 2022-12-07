@@ -1,20 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useUser, useSupabaseClient, useSession } from '@supabase/auth-helpers-react'
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Avatar from './Avatar'
 import Sidebar from './Sidebar'
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 
-
-export default function Account() {
+export default function Account({ session }) {
   const supabase = useSupabaseClient()
   const user = useUser()
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
-
-  const session = useSession()
-  
 
   useEffect(() => {
     getProfile()
@@ -40,7 +35,7 @@ export default function Account() {
         setAvatarUrl(data.avatar_url)
       }
     } catch (error) {
-      //alert('Error loading user data!')
+      alert('Error loading user data!')
       console.log(error)
     } finally {
       setLoading(false)
@@ -52,6 +47,7 @@ export default function Account() {
       setLoading(true)
 
       const updates = {
+        id: user.id,
         username,
         website,
         avatar_url,
@@ -70,15 +66,11 @@ export default function Account() {
   }
 
   return (
-    <div>
-
-    {!session ? (
-      <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
-    ) : (
-      <div class="flex w- h-12 py-4">
-      <Sidebar />
-  <div className="form-widget">
-    <Avatar
+    <div class="flex">
+    <Sidebar />
+    <div className="form-widget">
+<Avatar
+      uid={user.id}
       url={avatar_url}
       size={150}
       onUpload={(url) => {
@@ -86,49 +78,46 @@ export default function Account() {
         updateProfile({ username, website, avatar_url: url })
       }}
     />
-    <div>
-      <label htmlFor="email">Email</label>
-      <input id="email" type="text" value={session.user.email} disabled />
-    </div>
-    <div>
-      <label htmlFor="username">Username</label>
-      <input
-        id="username"
-        type="text"
-        value={username || ''}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-    </div>
-    <div>
-      <label htmlFor="website">Website</label>
-      <input
-        id="website"
-        type="website"
-        value={website || ''}
-        onChange={(e) => setWebsite(e.target.value)}
-      />
-    </div>
 
-    <div>
-      <button
-        className="button primary block"
-        onClick={() => updateProfile({ username, website, avatar_url })}
-        disabled={loading}
-      >
-        {loading ? 'Loading ...' : 'Update'}
-      </button>
-    </div>
-
-    <div>
-      <button className="button block" onClick={() => supabase.auth.signOut()}>
-        Sign Out
-      </button>
-    </div>
-  </div>
-  </div>
-    )}
-     
+      <div>
+        <label htmlFor="email">Email</label>
+        <input id="email" type="text" value={session.user.email} disabled />
+      </div>
+      <div>
+        <label htmlFor="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          value={username || ''}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          type="website"
+          value={website || ''}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
       </div>
 
+      <div>
+        <button
+          className="button primary block"
+          onClick={() => updateProfile({ username, website, avatar_url })}
+          disabled={loading}
+        >
+          {loading ? 'Loading ...' : 'Update'}
+        </button>
+      </div>
+
+      <div>
+        <button className="button block" onClick={() => supabase.auth.signOut()}>
+          Sign Out
+        </button>
+      </div>
+    </div>
+    </div>
   )
 }

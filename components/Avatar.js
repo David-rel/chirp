@@ -1,53 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useUser, useSupabaseClient, useSession } from '@supabase/auth-helpers-react'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
-
-export default function Avatar({ url, size, onUpload }) {
+export default function Avatar({ uid, url, size, onUpload }) {
   const supabase = useSupabaseClient()
   const [avatarUrl, setAvatarUrl] = useState(null)
   const [uploading, setUploading] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [getUser, setGetUser] = useState(null)
-  const user = useUser()
-  const session = useSession()
-
-
-  useEffect(() => {
-    getProfile()
-  }, [session])
 
   useEffect(() => {
     if (url) downloadImage(url)
   }, [url])
-
-  async function getProfile() {
-    try {
-      setLoading(true)
-
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`username, website, avatar_url`)
-        .eq('id', user.id)
-        .single()
-
-      if (error && status !== 406) {
-        throw error
-      }
-
-      if (data) {
-        setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
-        setGetUser(user.id)
-      }
-    } catch (error) {
-      //alert('Error loading user data!')
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
 
   async function downloadImage(path) {
     try {
@@ -72,7 +33,7 @@ export default function Avatar({ url, size, onUpload }) {
 
       const file = event.target.files[0]
       const fileExt = file.name.split('.').pop()
-      const fileName = `${user.id}.${fileExt}`
+      const fileName = `${uid}.${fileExt}`
       const filePath = `${fileName}`
 
       let { error: uploadError } = await supabase.storage

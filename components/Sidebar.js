@@ -38,7 +38,7 @@ function Sidebar({ session }) {
               <svg class="mr-4 h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
               Lists(coming soon)
             </a>
-                <Link href={{ pathname: '/account', query: { object: JSON.stringify(object) } }} class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
+                <Link href="/" class="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
               <svg class="mr-4 h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
               Profile
             </Link>
@@ -50,7 +50,7 @@ function Sidebar({ session }) {
           </nav>
               
         <div class="flex-shrink-0 flex hover:bg-blue-00 rounded-full p-4 mt-12 mr-2">
-          <Link href="/account" class="flex-shrink-0 group block">
+          <Link href="/" class="flex-shrink-0 group block">
             <div class="flex items-center">
               <div>
                 <img class="inline-block h-10 w-10 rounded-full" src="https://img.freepik.com/premium-vector/abstract-modernd-web3-crypto-blockchain-infinity-square-3d-blue-gradient-dark-background-cryptoc_8169-530.jpg?w=2000" alt="test" />
