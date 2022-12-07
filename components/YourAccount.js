@@ -10,6 +10,7 @@ export default function Account({ session }) {
   const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
+  const [full_name, setFullName] = useState(null)
 
   useEffect(() => {
     getProfile()
@@ -21,7 +22,7 @@ export default function Account({ session }) {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, website, avatar_url`)
+        .select(`username, website, avatar_url, full_name`)
         .eq('id', user.id)
         .single()
 
@@ -33,6 +34,7 @@ export default function Account({ session }) {
         setUsername(data.username)
         setWebsite(data.website)
         setAvatarUrl(data.avatar_url)
+        setFullName(data.full_name);
       }
     } catch (error) {
       alert('Error loading user data!')
@@ -42,7 +44,7 @@ export default function Account({ session }) {
     }
   }
 
-  async function updateProfile({ username, website, avatar_url }) {
+  async function updateProfile({ username, website, avatar_url, full_name }) {
     try {
       setLoading(true)
 
@@ -51,9 +53,21 @@ export default function Account({ session }) {
         username,
         website,
         avatar_url,
+        full_name,
         updated_at: new Date().toISOString(),
       }
-
+      if(full_name == ''){
+        alert('please fill out the full name')
+        return
+      }
+      if(username == ''){
+        alert('please fill out the username')
+        return
+      }
+      if(avatar_url == ''){
+        alert('please create avatar')
+        return
+      }
       let { error } = await supabase.from('profiles').upsert(updates)
       if (error) throw error
       alert('Profile updated!')
@@ -101,11 +115,20 @@ export default function Account({ session }) {
           onChange={(e) => setWebsite(e.target.value)}
         />
       </div>
+      <div>
+        <label htmlFor="full_name">Full Name</label>
+        <input
+          id="full_name"
+          type="text"
+          value={full_name || ''}
+          onChange={(e) => setFullName(e.target.value)}
+        />
+      </div>
 
       <div>
         <button
           className="button primary block"
-          onClick={() => updateProfile({ username, website, avatar_url })}
+          onClick={() => updateProfile({ username, website, avatar_url, full_name })}
           disabled={loading}
         >
           {loading ? 'Loading ...' : 'Update'}
