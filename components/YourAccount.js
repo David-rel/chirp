@@ -66,7 +66,7 @@ export default function Account({ session }) {
   }
 
   return (
-    <div class="flex">
+    <div className="flex">
     <Sidebar />
     <div className="form-widget">
 <Avatar

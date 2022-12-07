@@ -1,7 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
 import Main from '../components/Main'
-import { useSession } from '@supabase/auth-helpers-react'
 
 
 function home({ session }) {

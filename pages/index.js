@@ -1,6 +1,5 @@
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import House from './home'
 import YourAccount from "../components/YourAccount"
 
 const Home = () => {
