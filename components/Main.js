@@ -1,10 +1,106 @@
-import { useSession } from '@supabase/auth-helpers-react'
 import React from 'react'
 import Sidebar from './Sidebar'
+import Chirps from './Chirps'
+import { useState, useEffect } from 'react'
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+import SidebarAvatar from './SidebarAvatar'
 
-function Main({ session }) {
+function Main() {
 
-    session = useSession()
+  const supabase = useSupabaseClient()
+  const user = useUser()
+  const [loading, setLoading] = useState(true)
+  const [fetchError, setFetchError] = useState(null)
+  const [posts, setPosts] = useState(null)
+  const [orderBy, setOrderBy] = useState('created_at')
+  const [avatar_url, setAvatarUrl] = useState(null)
+  const [full_name, setFullName] = useState(null)
+  const [description, setDescription] = useState(null)
+  const [username, setUsername] = useState(null)
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const { data, error } = await supabase
+      .from('posts')
+      .select()
+      .order(orderBy, {ascending: false})
+
+      if(error) {
+        setFetchError('could not fetch posts')
+        setPosts(null)
+        console.log(error)
+      }
+
+      if(data){
+        setPosts(data)
+        setFetchError(null)
+      }
+    }
+
+    fetchPosts()
+  }, [orderBy, setPosts])
+
+  async function getProfile() {
+    try {
+      setLoading(true)
+      const { data: profiles } = await supabase.from('profiles').select('id')
+      const Id = profiles[0].id
+
+      let { data, error, status } = await supabase
+        .from('profiles')
+        .select(`full_name, avatar_url, username`)
+        .eq('id', Id)
+        .single()
+
+      if (error && status !== 406) {
+        throw error
+      }
+
+      if (data) {
+        setFullName(data.full_name)
+        setAvatarUrl(data.avatar_url)
+        setUsername(data.username)
+      }
+    } catch (error) {
+      alert('Error loading user data!')
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  } 
+
+  async function addNewPost({ username, avatar_url, full_name, description }) {
+    try {
+      setLoading(true)
+
+      const updates = {
+        username,
+        avatar_url,
+        full_name,
+        description,
+        created_at: new Date().toISOString(),
+      }
+      if (!description) {
+        setFormError('Please fill in all the fields correctly.')
+        return
+      }
+      
+      let { error } = await supabase.from('posts').insert(updates)
+      if (error) throw error
+      alert('New Post added!')
+    } catch (error) {
+      alert('Error adding the data!')
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getProfile()
+  }, [])
+
+
 
   return (
     <div className="flex">
@@ -12,7 +108,7 @@ function Main({ session }) {
     <div className="w-3/5 border border-gray-600 h-auto  border-t-0">             
                 <div className="flex">
                     <div className="flex-1 m-2">
-                        <h2 className="px-4 py-2 text-xl font-semibold text-white">Home, Welcome to Chirp</h2>
+                        <h2 className="px-4 py-2 text-xl font-semibold text-white">Home, Welcome to Chirp {full_name}</h2>
                     </div>
                     <div className="flex-1 px-4 py-2 m-2">
                         <a href="" className=" text-2xl font-medium rounded-full text-white hover:bg-green-800 hover:text-green-300 float-right">
@@ -24,11 +120,22 @@ function Main({ session }) {
 
                 <hr className="border-gray-600" />
                 <div className="flex">
-                    <div className="m-2 w-10 py-1">
-                        <img className="inline-block h-10 w-10 rounded-full" src="https://img.freepik.com/premium-vector/abstract-modernd-web3-crypto-blockchain-infinity-square-3d-blue-gradient-dark-background-cryptoc_8169-530.jpg?w=2000" alt="" />
+                    <div className="m-2 w-15 py-1">
+                    <SidebarAvatar
+                        url={avatar_url}
+                        size={50}
+                    />
                     </div>
                     <div className="flex-1 px-2 pt-2 mt-2">
-                        <textarea className=" bg-transparent text-gray-400 font-medium text-lg w-full" rows="2" cols="50" placeholder="What's happening?"></textarea>
+                    <div>
+        <label htmlFor="description">What is on your mind</label>
+        <input
+          id="description"
+          type="text"
+          value={description || ''}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
                     </div>                    
                 </div>
                 <div className="flex">
@@ -42,29 +149,12 @@ function Main({ session }) {
                                     <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                   </a>
                             </div>
-
-                            <div className="flex-1 text-center py-2 m-2">
-                                <a href="#" className="mt-1 group flex items-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
-                                    <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                </a>
-                            </div>
-
-                            <div className="flex-1 text-center py-2 m-2">
-                                <a href="#" className="mt-1 group flex items-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
-                                    <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                </a>
-                            </div>
-
-                            <div className="flex-1 text-center py-2 m-2">
-                                <a href="#" className="mt-1 group flex items-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
-                                <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </a>
-                            </div>
-                        </div>
+                      </div>
                     </div>
 
                     <div className="flex-1">
-                        <button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-right">
+                        <button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-right" onClick={() => addNewPost({ full_name, avatar_url, username, description })}
+          disabled={loading}>
                             Chirp
                           </button>
                     </div>
