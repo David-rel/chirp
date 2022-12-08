@@ -37,7 +37,7 @@ function ExploreChirps() {
     <div className="flex">
     <Sidebar />
 
-    <div className="w-3/5 border border-gray-600 h-auto border-t-0">
+    <div className="w-4/5 border border-gray-600 h-auto border-t-0">
     <div>
     <div className="flex">
                 <div className="flex-1 m-2 ">
