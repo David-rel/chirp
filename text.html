@@ -1,4 +1,14 @@
-
+{fetchError && (<p>{fetchError}</p>)}
+                {posts && (
+                    <div>
+                        {posts.map(post => (
+                        <Chirps
+                        key={post.id}
+                        post={post}
+                        />
+                    ))}
+                    </div>
+                )}
 
 
 

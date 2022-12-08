@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import Avatar from './Avatar'
 import SidebarAvatar from './SidebarAvatar'
+import { getPositionOfLineAndCharacter } from 'typescript'
 
 function Sidebar({ session }) {
   const supabase = useSupabaseClient()
@@ -12,14 +13,17 @@ function Sidebar({ session }) {
   const [avatar_url, setAvatarUrl] = useState(null)
   const [full_name, setFullName] = useState(null)
 
+
  async function getProfile() {
     try {
       setLoading(true)
+      const { data: profiles } = await supabase.from('profiles').select('id')
+      const Id = profiles[0].id
 
       let { data, error, status } = await supabase
         .from('profiles')
         .select(`username, avatar_url, full_name`)
-        .eq('id', user.id)
+        .eq('id', Id)
         .single()
 
       if (error && status !== 406) {
@@ -41,7 +45,8 @@ function Sidebar({ session }) {
 
   useEffect(() => {
     getProfile()
-  }, [session])
+  }, [])
+
 
   return (
 <div className="w-1.5/5 text-white h-12 py-2">
@@ -87,7 +92,6 @@ function Sidebar({ session }) {
             <div className="flex items-center">
               <div>
               <SidebarAvatar
-                uid={user.id}
                 url={avatar_url}
                 size={50}
               />

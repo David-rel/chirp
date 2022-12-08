@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import Avatar from './Avatar'
 
-function SidebarAvatar({ uid, url, size }) {
+function SidebarAvatar({  url, size }) {
 
     const supabase = useSupabaseClient()
     const [avatarUrl, setAvatarUrl] = useState(null)
