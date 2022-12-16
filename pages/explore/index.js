@@ -1,5 +1,4 @@
 import React from 'react'
-import Sidebar from '../../components/Sidebar'
 import Chirps from '../../components/Chirps'
 import { useState, useEffect } from 'react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
@@ -25,6 +24,9 @@ function ExploreChirps() {
   useEffect(() => {
     if(router.isReady){
       const { id } = router.query;
+      if(id == null){
+        return; 
+      }
       getProfile(id)
     }
   }, [router.isReady])
@@ -87,7 +89,7 @@ function ExploreChirps() {
               <svg className="mr-4 h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
               Lists(coming soon)
             </a>
-                <Link href="/" className="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
+                <Link href={`/home?id=${id}`} className="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
               <svg className="mr-4 h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
               Profile
             </Link>
