@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "pages/profile/index.js", "components/Avatar.js", "components/Sidebar.js", "pages/_app.js", "pages/index.js", "pages/login/index.js"  ],
   "exclude": [
     "node_modules"
   ]

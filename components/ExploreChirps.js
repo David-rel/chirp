@@ -10,27 +10,7 @@ function ExploreChirps() {
   const [posts, setPosts] = useState(null)
   const [orderBy, setOrderBy] = useState('created_at')
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const { data, error } = await supabase
-      .from('posts')
-      .select()
-      .order(orderBy, {ascending: false})
-
-      if(error) {
-        setFetchError('could not fetch posts')
-        setPosts(null)
-        console.log(error)
-      }
-
-      if(data){
-        setPosts(data)
-        setFetchError(null)
-      }
-    }
-
-    fetchPosts()
-  }, [orderBy, setPosts])
+  
 
 
   return (

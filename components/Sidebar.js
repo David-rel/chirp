@@ -4,26 +4,32 @@ import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-r
 import Avatar from './Avatar'
 import SidebarAvatar from './SidebarAvatar'
 import { getPositionOfLineAndCharacter } from 'typescript'
+import { Navbar, Button, Text } from "@nextui-org/react";
+import router from 'next/router'
 
-function Sidebar({ session }) {
-  const supabase = useSupabaseClient()
+
+function Sidebar({ id }) {
+  const supabaseClient = useSupabaseClient()
   const user = useUser()
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
   const [full_name, setFullName] = useState(null)
 
+  //const { id } = router.query;
 
- async function getProfile() {
+  useEffect(() => {
+    getProfile()
+  }, [])
+
+  async function getProfile() {
     try {
       setLoading(true)
-      const { data: profiles } = await supabase.from('profiles').select('id')
-      const Id = profiles[0].id
 
-      let { data, error, status } = await supabase
+      const { data, error, status } = await supabaseClient
         .from('profiles')
-        .select(`username, avatar_url, full_name`)
-        .eq('id', Id)
+        .select("username, full_name, avatar_url")
+        .eq('id', id)
         .single()
 
       if (error && status !== 406) {
@@ -31,21 +37,18 @@ function Sidebar({ session }) {
       }
 
       if (data) {
-        setUsername(data.username)
-        setAvatarUrl(data.avatar_url)
         setFullName(data.full_name);
+        setAvatarUrl(data.avatar_url);
+        setUsername(data.username);
       }
     } catch (error) {
-      alert('Error loading user data!')
+     // alert('Error loading user data!')
       console.log(error)
     } finally {
       setLoading(false)
     }
-  } 
+}
 
-  useEffect(() => {
-    getProfile()
-  }, [])
 
 
   return (
@@ -86,8 +89,17 @@ function Sidebar({ session }) {
               </button>
               </Link>
           </nav>
-              
-        <div className="flex-shrink-0 flex hover:bg-blue-00 rounded-full p-4 mt-12 mr-2">
+
+          {!user ?
+            
+            <Link href="/login">
+                <button className="bg-green-600 w-48 mt-5 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-full">
+                Login
+              </button>
+              </Link>
+        
+            :
+            <div className="flex-shrink-0 flex hover:bg-blue-00 rounded-full p-4 mt-12 mr-2">
           <Link href="/" className="flex-shrink-0 group block">
             <div className="flex items-center">
               <div>
@@ -107,7 +119,7 @@ function Sidebar({ session }) {
             </div>
           </Link>
         </div>
-
+          }
     </div>  
     )
 }

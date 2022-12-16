@@ -1,27 +1,30 @@
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import YourAccount from "../components/YourAccount"
-import Sidebar from '../components/Sidebar'
-import ExploreChirps from '../components/ExploreChirps'
-import Link from 'next/link'
-
+//import type { NextPage } from 'next'
+//import styles from '../styles/Home.module.css'
+import { Text, Spacer } from "@nextui-org/react";
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import router from 'next/router';
+import Sidebar from "../components/Sidebar";
+// localhost:3000
 const Home = () => {
-  const session = useSession()
-  const supabase = useSupabaseClient()
+
+  const user = useUser();
+
+
+  if(user){
+      router.push(`/profile?id=${user.id}`);
+    }
 
   return (
-    <div className="container" style={{ padding: '50px 0 100px 0' }}>
-      {!session ? (
-        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
-      ) : (
-        <>
-        <YourAccount session={session} />
-        </>
-
-      )}
-    </div>
+    <>
+    <Sidebar />
+      <Text h2>The new twitter</Text>
+      <Spacer y={1} />
+      <Text size="$lg">
+        Share tweets and make tweets
+      </Text>
+    </>
   )
 }
 
-export default Home
+export default Home;
 

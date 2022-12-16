@@ -18,56 +18,6 @@ function Main() {
   const [description, setDescription] = useState(null)
   const [username, setUsername] = useState(null)
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const { data, error } = await supabase
-      .from('posts')
-      .select()
-      .order(orderBy, {ascending: false})
-
-      if(error) {
-        setFetchError('could not fetch posts')
-        setPosts(null)
-        console.log(error)
-      }
-
-      if(data){
-        setPosts(data)
-        setFetchError(null)
-      }
-    }
-
-    fetchPosts()
-  }, [orderBy, setPosts])
-
-  async function getProfile() {
-    try {
-      setLoading(true)
-      const { data: profiles } = await supabase.from('profiles').select('id')
-      const Id = profiles[0].id
-
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`full_name, avatar_url, username`)
-        .eq('id', Id)
-        .single()
-
-      if (error && status !== 406) {
-        throw error
-      }
-
-      if (data) {
-        setFullName(data.full_name)
-        setAvatarUrl(data.avatar_url)
-        setUsername(data.username)
-      }
-    } catch (error) {
-      alert('Error loading user data!')
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  } 
 
   async function addNewPost({ username, avatar_url, full_name, description }) {
     try {
@@ -95,12 +45,6 @@ function Main() {
       setLoading(false)
     }
   }
-
-  useEffect(() => {
-    getProfile()
-  }, [])
-
-
 
   return (
     <div className="flex">
