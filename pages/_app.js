@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { SessionContextProvider } from '@supabase/auth-helpers-react'
+import { SessionContextProvider, useUser } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
 import Sidebar from "../components/Sidebar"
 import { AppProps } from 'next/app'
@@ -8,6 +8,7 @@ import { NextUIProvider } from "@nextui-org/react"
 
 function MyApp({ Component, pageProps }) {
   const [supabase] = useState(() => createBrowserSupabaseClient())
+  const user = useUser()
 
   return (
     <SessionContextProvider 
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps }) {
     >
       <NextUIProvider>
       <div className='flex'>
+      {/* <Sidebar id={user?.id} /> */}
       <Component {...pageProps} />
       </div>
       </NextUIProvider>
