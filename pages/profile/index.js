@@ -156,10 +156,10 @@ const Profile = () => {
               </div>
               <div className="ml-3">
                 <p className="text-base leading-6 font-medium text-white">
-                  {full_name}
+                  {full_name || "unknown"}
                 </p>
                 <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
-                  @{username}
+                  @{username || "unknown"}
                 </p>
               </div>
             </div>
@@ -206,7 +206,7 @@ const Profile = () => {
                     onChange={(e) => setUsername(e.target.value)}
                 />
                 </Grid>
-                <Text h3 color='white'>Full Name</Text>
+                <Text h3 color='white'>Name</Text>
             <Grid xs={12}>
                 <Textarea 
                     name="full_name" 

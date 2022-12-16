@@ -13,7 +13,10 @@ const Login = () => {
     }
     
     return (
-        <Auth
+        // <div style="color: white">
+        // </div>
+
+            <Auth
             appearance={{theme: ThemeSupa}}
             supabaseClient={supabaseClient}
         />

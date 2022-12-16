@@ -89,7 +89,7 @@ function Main() {
               <svg className="mr-4 h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
               Lists(coming soon)
             </a>
-                <Link href={`/home?id=${id}`} className="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
+                <Link href={`/profile?id=${id}`} className="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
               <svg className="mr-4 h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
               Profile
             </Link>
@@ -120,10 +120,10 @@ function Main() {
               </div>
               <div className="ml-3">
                 <p className="text-base leading-6 font-medium text-white">
-                  {full_name}
+                  {full_name || "unknown"}
                 </p>
                 <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
-                  @{username}
+                  @{username || "unknown"}
                 </p>
               </div>
             </div>
@@ -133,7 +133,7 @@ function Main() {
     </div>      <div className="w-3/5 border border-gray-600 h-auto  border-t-0">             
                 <div className="flex">
                     <div className="flex-1 m-2">
-                        <h2 className="px-4 py-2 text-xl font-semibold text-white">Home, Welcome to Chirp, {full_name}</h2>
+                        <h2 className="px-4 py-2 text-xl font-semibold text-white">Home, Welcome to Chirp, {full_name || "unknown"}</h2>
                     </div>
                     <div className="flex-1 px-4 py-2 m-2">
                         <a href="" className=" text-2xl font-medium rounded-full text-white hover:bg-green-800 hover:text-green-300 float-right">
@@ -169,8 +169,8 @@ function Main() {
                     <div className="w-64 px-2">
                         
                         <div className="flex items-center">
-                            <div className="flex-1 text-center px-1 py-1 m-2">
-                                <a href="#" className="mt-1 group flex items-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
+                            <div className="text-center px-1 py-1 m-2">
+                                <a href="#" className="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
                                     <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                   </a>
                             </div>
