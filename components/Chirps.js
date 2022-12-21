@@ -4,7 +4,7 @@ import SidebarAvatar from "./SidebarAvatar"
 function Chirps({ post }) {
 
   return (
-    <div className="w-3/5 border border-gray-600 h-auto  border-t-0">
+    <div className="w-5/5 border border-gray-600 h-auto  border-t-0">
         <div className="flex flex-shrink-0 p-4 pb-0">
                 <a href="#" className="flex-shrink-0 group block">
                   <div className="flex items-center">

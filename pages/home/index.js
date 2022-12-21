@@ -57,6 +57,34 @@ function Main() {
     }
 }
 
+async function addNewPost({ username, avatar_url, full_name, description }) {
+  try {
+    setLoading(true)
+
+    const updates = {
+      username,
+      avatar_url,
+      full_name,
+      description,
+      created_at: new Date().toISOString(),
+    }
+    if (!description) {
+      setFormError('Please fill in all the fields correctly.')
+      return
+    }
+    
+    let { error } = await supabase.from('posts').insert(updates)
+    if (error) throw error
+    alert('New Post added!')
+  } catch (error) {
+    alert('Error adding the data!')
+    console.log(error)
+  } finally {
+    setLoading(false)
+    router.push(`/explore?id=${id}`)
+  }
+}
+
 
   
 

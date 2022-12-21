@@ -24,6 +24,12 @@ const Home = () => {
       <Text size="$lg">
         Share tweets and make tweets
       </Text>
+
+      <Link href="/login">
+                <button className="bg-green-600 w-48 mt-5 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-full">
+                Login
+              </button>
+              </Link>
     </>
   )
 }
