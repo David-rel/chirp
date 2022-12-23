@@ -84,7 +84,7 @@ useEffect(() => {
 }, [orderBy, setPosts])
 
   return (
-    <div className="flex">
+    <div className="flex w-full">
 <div className="text-white h-12 py-2">
     <svg viewBox="0 0 24 24" className="h-12 w-12 text-white" fill="green"><g><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"></path></g></svg>
               
@@ -142,7 +142,7 @@ useEffect(() => {
               />
               </div>
               <div className="ml-3">
-                <p className="text-base leading-6 font-medium text-white">
+                <p className="text-base leading-6 font-medium text-black">
                   {full_name || "unknown"}
                 </p>
                 <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
@@ -154,11 +154,11 @@ useEffect(() => {
         </div>
           }
     </div> 
-    <div className="w-4/5 border border-gray-600 h-auto border-t-0">
+    <div className="w-6/12 border border-gray-600 h-auto border-t-0">
     <div>
     <div className="flex">
                 <div className="flex-1 m-2 ">
-                    <h2 className="px-4 py-2 text-xl font-semibold text-white">Explore Chirps from others</h2>
+                    <h2 className="px-4 py-2 text-xl font-semibold text-black">Explore Chirps from others</h2>
                 </div>
                 <div className="flex-1 px-4 py-2 m-2">
                     <a href="" className=" text-2xl font-medium rounded-full text-white hover:bg-green-800 hover:text-green-300 float-right">
@@ -167,8 +167,9 @@ useEffect(() => {
                     </a>
                 </div>
             </div>
+            <hr className="border-black-600" />
             </div>
-            <hr className="border-gray-600" />
+            <hr className="border-black-600" />
             {posts && (
                     <div>
                         {posts.map(post => (
@@ -181,8 +182,146 @@ useEffect(() => {
                 )}
     </div>        
 
+    <div class="w-2/5 h-12">
+
+                
+
+
+                <div class="max-w-sm rounded-lg bg-blue-800 overflow-hidden shadow-lg m-4 mr-20">
+                    <div class="flex">
+                        <div class="flex-1 m-2">
+                            <h2 class="px-4 py-2 text-xl w-48 font-semibold text-black">Nerd trends</h2>
+                        </div>
+                        <div class="flex-1 px-4 py-2 m-2">
+                            <a href="" class=" text-2xl rounded-full text-white hover:bg-green-800 hover:text-green-300 float-right">
+                                <svg class="m-2 h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+
     
-</div>
+                    <hr class="border-green-600" />
+
+                    <div class="flex">
+                        <div class="flex-1">
+                            <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">1 . Trending</p>
+                            <h2 class="px-4 ml-2 w-48 font-bold text-black">#100DaysOfCode</h2>
+                            <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,466 Tweets</p>
+                            
+                        </div>
+                        
+                    </div>
+                    <hr class="border-green-600" />
+
+
+                    <div class="flex">
+                        <div class="flex-1">
+                            <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">2 .  Programming . Trending</p>
+                            <h2 class="px-4 ml-2 w-48 font-bold text-black">#Programming</h2>
+                            <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">8,464 Tweets</p>
+                            
+                        </div>
+                        
+                    </div>
+                    <hr class="border-green-600" />
+
+
+                    <div class="flex">
+                        <div class="flex-1">
+                            <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">3 .  Testing . Trending</p>
+                            <h2 class="px-4 ml-2 w-48 font-bold text-black">#Production</h2>
+                            <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,586 Tweets</p>
+                            
+                        </div>
+                        
+                    </div>
+                    <hr class="border-gray-600" />
+
+
+                    <div class="flex">
+                        <div class="flex-1">
+                            <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">4 . Clones . Trending</p>
+                            <h2 class="px-4 ml-2 w-44 text-black">#twitterClone</h2>
+                            <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">9,416 Tweets</p>
+                            
+                        </div>
+                        
+                    </div>
+                    <hr class="border-gray-600" />
+
+
+                   
+                
+                </div>
+
+
+                
+                <div class="max-w-sm rounded-lg bg-blue-800 overflow-hidden shadow-lg m-4 mr-20">
+                    <div class="flex">
+                        <div class="flex-1 m-2">
+                            <h2 class="px-4 py-2 text-xl w-48 font-semibold text-black">Who to follow</h2>
+                        </div>
+                    </div>
+
+    
+                    <hr class="border-gray-600" />
+
+                        
+                    <div class="flex flex-shrink-0">
+                        <div class="flex-1 ">
+                            <div class="flex items-center w-48">
+                                <div>
+                                {/* <SidebarAvatar
+                                  url={avatar_url}
+                                  size={50}
+                                /> */}
+                                <img src='https://storage.googleapis.com/opensea-static/Logomark/Logomark-White.png' />
+                                </div>
+                                <div class="ml-3 mt-3">
+                                  <p class="text-base leading-6 font-medium text-black">
+                                    David Fales 
+                                  </p>
+                                  <p class="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                                    @David_Rel
+                                  </p>
+                                </div>
+                              </div>
+                            
+                        </div>
+                        <div class="flex-1 px-4 py-2 m-2">
+                            <a href="" class=" float-right">
+                                <button class="bg-transparent hover:bg-green-500 text-black font-semibold hover:text-black py-2 px-4 border border-black hover:border-transparent rounded-full">
+                                    Follow
+                                  </button>  
+                            </a>
+                            
+                        </div>
+                    </div>
+                    <hr class="border-gray-600" />
+
+                        
+        
+
+                    <hr class="border-gray-600" />
+
+                   
+                    
+                
+                </div>
+
+            <div class="flow-root m-6 inline">
+                <div class="flex-1">
+                    <a href="#">
+                    <p class="text-sm leading-6 font-medium text-gray-500">Terms Privacy Policy Cookies Imprint Ads info</p>
+                  	</a>
+           		 </div>
+                <div class="flex-2">
+                    <p class="text-sm leading-6 font-medium text-gray-600"> © 2020 Twitter, Inc.</p>
+                </div>
+                </div>
+        </div>
+        </div>
+       
   )
 }
 

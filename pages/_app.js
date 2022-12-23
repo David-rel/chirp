@@ -14,9 +14,7 @@ function MyApp({ Component, pageProps }) {
     supabaseClient={supabase}
     >
       <NextUIProvider>
-      <div className='flex'>
       <Component {...pageProps} />
-      </div>
       </NextUIProvider>
     </SessionContextProvider>
 
