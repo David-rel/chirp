@@ -1,7 +1,11 @@
+import { useEffect } from "react"
+import Photo from "./Photo"
+import PhotoForOthers from "./PhotoForOthers"
 import SidebarAvatar from "./SidebarAvatar"
 
 
 function Chirps({ post }) {
+
 
   return (
     <div className="w-5/5 border border-gray-600 h-auto  border-t-0">
@@ -31,13 +35,15 @@ function Chirps({ post }) {
                 </p>
                 <br/>
                 <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg xl:aspect-w-7 xl:aspect-h-8 left 20">
-                <SidebarAvatar
-                      url={post.avatar_url}
-                      size={400}
-                      layout="fill"
-                      objectFit="cover"
-                    />
+                <div>
+                
                 </div>
+                    </div>
+
+                    <PhotoForOthers
+                url={post.photo_url}
+                size={300}
+              /> 
 
 
               

@@ -4,8 +4,6 @@ import { Text, Spacer } from "@nextui-org/react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import router from 'next/router';
-import Sidebar from "../components/Sidebar";
-import SidebarAvatar from "../components/SidebarAvatar";
 // localhost:3000
 const Home = () => {
 

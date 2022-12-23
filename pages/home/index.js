@@ -1,5 +1,4 @@
 import React from 'react'
-import Sidebar from '../../components/Sidebar'
 import Chirps from '../../components/Chirps'
 import { useState, useEffect } from 'react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
@@ -7,6 +6,9 @@ import SidebarAvatar from '../../components/SidebarAvatar'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { withPageAuth } from '@supabase/auth-helpers-nextjs'
+import { v4 as uuidv4 } from 'uuid';
+import Avatar from '../../components/Avatar'
+import Photo from '../../components/Photo'
 
 function Main() {
 
@@ -19,6 +21,8 @@ function Main() {
   const [full_name, setFullName] = useState(null)
   const [description, setDescription] = useState(null)
   const [username, setUsername] = useState(null)
+  const [photo_url, setPhotoUrl] = useState(null)
+  const [uploading, setUploading] = useState(false)
 
 
   const { id } = router.query
@@ -66,6 +70,7 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
       avatar_url,
       full_name,
       description,
+      photo_url,
       created_at: new Date().toISOString(),
     }
     if (!description) {
@@ -84,9 +89,7 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
     router.push(`/explore?id=${id}`)
   }
 }
-
-
-  
+ 
 
   return (
     <div className="flex">
@@ -121,7 +124,7 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
               <svg className="mr-4 h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
               Profile
             </Link>
-                <Link href="/home">
+                <Link href={`/home?id=${id}`}>
                 <button className="bg-green-600 w-48 mt-5 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-full">
                 Chirp
               </button>
@@ -189,7 +192,14 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
-                    </div>                    
+      <Photo
+      url={photo_url}
+      size={150}
+      onUpload={(url) => {
+        setPhotoUrl(url)
+      }}
+    />   
+                   </div>                    
                 </div>
                 <div className="flex">
                     <div className="w-10"></div>
@@ -198,10 +208,7 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
                         
                         <div className="flex items-center">
                             <div className="text-center px-1 py-1 m-2">
-                                <a href="#" className="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
-                                    <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                  </a>
-                            </div>
+                          </div>
                       </div>
                     </div>
 

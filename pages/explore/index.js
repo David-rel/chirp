@@ -18,6 +18,7 @@ function ExploreChirps() {
   const [description, setDescription] = useState(null)
   const [username, setUsername] = useState(null)
   const [orderBy, setOrderBy] = useState('created_at')
+  const [photo_url, setPhotoUrl] = useState(null)
 
 
 
@@ -64,7 +65,7 @@ useEffect(() => {
   const fetchPosts = async () => {
     const { data, error } = await supabase
     .from('posts')
-    .select()
+    .select('*')
     .order(orderBy, {ascending: false})
 
     if(error) {
@@ -81,10 +82,6 @@ useEffect(() => {
 
   fetchPosts()
 }, [orderBy, setPosts])
-
-
-  
-
 
   return (
     <div className="flex">
@@ -119,7 +116,7 @@ useEffect(() => {
               <svg className="mr-4 h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
               Profile
             </Link>
-                <Link href="/home">
+                <Link href={`/home?id=${id}`}>
                 <button className="bg-green-600 w-48 mt-5 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-full">
                 Chirp
               </button>
