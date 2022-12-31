@@ -176,6 +176,7 @@ useEffect(() => {
                         <Chirps
                         key={post.id}
                         post={post}
+                        userId = {id}
                         />
                     ))}
                     </div>

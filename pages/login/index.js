@@ -63,7 +63,7 @@ const Login = () => {
                   Login
         </button>
 
-        <h4>Don't have an account? <Link href='/signup'> Signup </Link></h4>
+        <h4>Don't have an account? <Link href={`/signup?id=1`}> Signup </Link></h4>
 
         </div>
            
