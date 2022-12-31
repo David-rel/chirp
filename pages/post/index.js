@@ -1,7 +1,7 @@
 import { router } from 'next/router'
 import React from 'react'
 
-function index() {
+function Post() {
 
     const { userId, id } = router.query;
 
@@ -15,4 +15,4 @@ function index() {
   )
 }
 
-export default index
+export default Post
