@@ -3,11 +3,12 @@ import { useState } from "react";
 import { createClient } from '@supabase/supabase-js'
 
 function signup() {
+
+    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [loading, setLoading] = useState(null)
-
-    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
     
     
