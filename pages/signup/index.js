@@ -1,12 +1,8 @@
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 
 function signup() {
-    const user = useUser();
-    const router = useRouter();
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null);
     const [loading, setLoading] = useState(null)
