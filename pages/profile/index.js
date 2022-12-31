@@ -16,7 +16,6 @@ const Profile = () => {
     const supabaseClient = useSupabaseClient();
     const user = useUser();
     const router = useRouter();
-    const supabase = useSupabaseClient()
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
@@ -154,7 +153,7 @@ const Profile = () => {
               />
               </div>
               <div className="ml-3">
-                <p className="text-base leading-6 font-medium text-black">
+                <p className="text-base leading-6 font-medium text-white">
                   {full_name || "unknown"}
                 </p>
                 <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">

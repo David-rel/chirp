@@ -142,7 +142,7 @@ useEffect(() => {
               />
               </div>
               <div className="ml-3">
-                <p className="text-base leading-6 font-medium text-black">
+                <p className="text-base leading-6 font-medium text-white">
                   {full_name || "unknown"}
                 </p>
                 <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
@@ -158,7 +158,7 @@ useEffect(() => {
     <div>
     <div className="flex">
                 <div className="flex-1 m-2 ">
-                    <h2 className="px-4 py-2 text-xl font-semibold text-black">Explore Chirps from others</h2>
+                    <h2 className="px-4 py-2 text-xl font-semibold text-white">Explore Chirps from others</h2>
                 </div>
                 <div className="flex-1 px-4 py-2 m-2">
                     <a href="" className=" text-2xl font-medium rounded-full text-white hover:bg-green-800 hover:text-green-300 float-right">
@@ -190,7 +190,7 @@ useEffect(() => {
                 <div class="max-w-sm rounded-lg bg-blue-800 overflow-hidden shadow-lg m-4 mr-20">
                     <div class="flex">
                         <div class="flex-1 m-2">
-                            <h2 class="px-4 py-2 text-xl w-48 font-semibold text-black">Nerd trends</h2>
+                            <h2 class="px-4 py-2 text-xl w-48 font-semibold text-white">Nerd trends</h2>
                         </div>
                         <div class="flex-1 px-4 py-2 m-2">
                             <a href="" class=" text-2xl rounded-full text-white hover:bg-green-800 hover:text-green-300 float-right">
@@ -205,7 +205,7 @@ useEffect(() => {
                     <div class="flex">
                         <div class="flex-1">
                             <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">1 . Trending</p>
-                            <h2 class="px-4 ml-2 w-48 font-bold text-black">#100DaysOfCode</h2>
+                            <h2 class="px-4 ml-2 w-48 font-bold text-white">#100DaysOfCode</h2>
                             <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,466 Tweets</p>
                             
                         </div>
@@ -217,7 +217,7 @@ useEffect(() => {
                     <div class="flex">
                         <div class="flex-1">
                             <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">2 .  Programming . Trending</p>
-                            <h2 class="px-4 ml-2 w-48 font-bold text-black">#Programming</h2>
+                            <h2 class="px-4 ml-2 w-48 font-bold text-white">#Programming</h2>
                             <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">8,464 Tweets</p>
                             
                         </div>
@@ -229,7 +229,7 @@ useEffect(() => {
                     <div class="flex">
                         <div class="flex-1">
                             <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">3 .  Testing . Trending</p>
-                            <h2 class="px-4 ml-2 w-48 font-bold text-black">#Production</h2>
+                            <h2 class="px-4 ml-2 w-48 font-bold text-white">#Production</h2>
                             <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,586 Tweets</p>
                             
                         </div>
@@ -241,7 +241,7 @@ useEffect(() => {
                     <div class="flex">
                         <div class="flex-1">
                             <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">4 . Clones . Trending</p>
-                            <h2 class="px-4 ml-2 w-44 text-black">#twitterClone</h2>
+                            <h2 class="px-4 ml-2 w-44 text-white">#twitterClone</h2>
                             <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">9,416 Tweets</p>
                             
                         </div>
@@ -259,7 +259,7 @@ useEffect(() => {
                 <div class="max-w-sm rounded-lg bg-blue-800 overflow-hidden shadow-lg m-4 mr-20">
                     <div class="flex">
                         <div class="flex-1 m-2">
-                            <h2 class="px-4 py-2 text-xl w-48 font-semibold text-black">Who to follow</h2>
+                            <h2 class="px-4 py-2 text-xl w-48 font-semibold text-white">Who to follow</h2>
                         </div>
                     </div>
 
@@ -275,10 +275,10 @@ useEffect(() => {
                                   url={avatar_url}
                                   size={50}
                                 /> */}
-                                <img src='https://storage.googleapis.com/opensea-static/Logomark/Logomark-White.png' />
+                                <img src='https://storage.googleapis.com/opensea-static/Logomark/Logomark-White.png' width={60} />
                                 </div>
                                 <div class="ml-3 mt-3">
-                                  <p class="text-base leading-6 font-medium text-black">
+                                  <p class="text-base leading-6 font-medium text-white">
                                     David Fales 
                                   </p>
                                   <p class="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">

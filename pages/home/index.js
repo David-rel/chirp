@@ -150,7 +150,7 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
               />
               </div>
               <div className="ml-3">
-                <p className="text-base leading-6 font-medium text-black">
+                <p className="text-base leading-6 font-medium text-white">
                   {full_name || "unknown"}
                 </p>
                 <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
@@ -165,7 +165,7 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
      <div className="w-full border border-gray-600 h-auto border-t-0">             
                 <div className="flex">
                     <div className="flex-1 m-2">
-                        <h2 className="px-4 py-2 text-xl font-semibold text-black">Home, Welcome to Chirp, {full_name || "unknown"}</h2>
+                        <h2 className="px-4 py-2 text-xl font-semibold text-white">Home, Welcome to Chirp, {full_name || "unknown"}</h2>
                     </div>
                     <div className="flex-1 px-4 py-2 m-2">
                         <a href="" className=" text-2xl font-medium rounded-full text-white hover:bg-green-800 hover:text-green-300 float-right">

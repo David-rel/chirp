@@ -1,43 +1,42 @@
-//import type { NextPage } from 'next';
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/router";
-import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
-import { useState } from "react";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useState } from 'react'
+import { createClient } from '@supabase/supabase-js'
 
-const Login = () => {
-    const supabaseClient = useSupabaseClient();
+function signup() {
     const user = useUser();
     const router = useRouter();
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null);
     const [loading, setLoading] = useState(null)
 
+    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
-    if(user) {
-        router.push(`/profile?id=${user.id}`);
-    }
-
-    async function Login({ email, password }){
+    
+    
+    async function Signup({ email, password }){
       try{
         setLoading(true)
-        const { data, error } = await supabaseClient.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signUp({
           email: email,
           password: password,
-        })
-        console.log(data.user.id)
+        }) 
       } catch (error) {
         alert('Error adding the data!')
         console.log(error)
       } finally {
         setLoading(false)
+        alert('check your email to verify if it is you')
       }
     }
+
+
+
     
-    return (
-        <div>
-          <h1>Login</h1>
-          
+  return (
+    <div>
+       <h1>Signup</h1> 
         {/* <Auth
             appearance={{theme: ThemeSupa}}
             supabaseClient={supabaseClient}
@@ -58,16 +57,16 @@ const Login = () => {
 
 
         <button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-right"
-         onClick={() => Login({ email, password })}
+         onClick={() => Signup({ email, password })}
           disabled={loading}>
-                  Login
+                  Signup
         </button>
 
-        <h4>Don't have an account? <Link href="/signup"> Signup </Link></h4>
 
-        </div>
-           
-    )
+
+<h4>Have an account? <Link href="/login"> Login </Link></h4>
+    </div>
+  )
 }
 
-export default Login;
+export default signup
