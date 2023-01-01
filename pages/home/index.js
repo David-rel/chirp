@@ -9,6 +9,7 @@ import { withPageAuth } from '@supabase/auth-helpers-nextjs'
 import { v4 as uuidv4 } from 'uuid';
 import Avatar from '../../components/Avatar'
 import Photo from '../../components/Photo'
+import UserChirps from '../../components/UserChirps'
 
 function Main() {
 
@@ -23,6 +24,8 @@ function Main() {
   const [username, setUsername] = useState(null)
   const [photo_url, setPhotoUrl] = useState(null)
   const [uploading, setUploading] = useState(false)
+  const [orderBy, setOrderBy] = useState('created_at')
+  const [posts, setPosts] = useState(null)
 
 
   const { id } = router.query
@@ -89,6 +92,29 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
     router.push(`/explore?id=${id}`)
   }
 }
+
+useEffect(() => {
+  const fetchPosts = async () => {
+    const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .order(orderBy, {ascending: false})
+
+    if(error) {
+      setFetchError('could not fetch posts')
+      setPosts(null)
+      console.log(error)
+    }
+
+    if(data){
+      setPosts(data)
+      setFetchError(null)
+    }
+  }
+
+  fetchPosts()
+}, [orderBy, setPosts])
+
  
 
   return (
@@ -222,7 +248,22 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
                 </div>
 
                 <hr className="border-green-800 border-4" />
+                <h2>Your Posts </h2>  
+
+                {posts && (
+                    <div>
+                        {posts.map(post => (
+                        <UserChirps
+                        key={post.id}
+                        post={post}
+                        username = {username}
+                        />
+                    ))}
+                    </div>
+                )}
+
               </div>
+
     </div>
   )
 }

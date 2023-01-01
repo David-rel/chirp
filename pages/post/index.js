@@ -1,6 +1,8 @@
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
-import { router, useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useCallback, useEffect, useState } from 'react'
+import SidebarAvatar from '../../components/SidebarAvatar';
+import PhotoForOthers from '../../components/PhotoForOthers'
 
 function Post() {
 
@@ -12,15 +14,46 @@ function Post() {
   const [avatar_url, setAvatarUrl] = useState(null)
   const [full_name, setFullName] = useState(null)
   const [username, setUsername] = useState(null)
+  const [post, setPost] = useState({})
+  const [comment, setComment] = useState(null)
+
 
   useEffect(() => {
     if(router.isReady){
         const { userId, id } = router.query;
-        getProfile(id, userId)
+        getProfile(userId)
+        getPost(id)
     }
   }, [router.isReady])
 
-  async function getProfile( id, userId ) {
+  
+
+    async function getPost(id) {
+        try{
+            const {data, error} = await supabase
+            .from("posts")
+            .select("*")
+            .filter("id", "eq", id)
+            .single();
+
+            console.log(data)
+        if (error) {
+            console.log(error);
+        } else {
+          let postData = data
+          setPost(postData)
+        }
+        }catch (error) {
+            alert('Error loading user data!')
+             console.log(error)
+           } finally {
+             setLoading(false)
+            
+
+    }
+}
+
+  async function getProfile( userId ) {
     try {
       setLoading(true)
 
@@ -29,6 +62,8 @@ function Post() {
         .select("*")
         .eq('id', userId)
         .single()
+
+        
 
       if (error && status !== 406) {
         throw error
@@ -44,15 +79,91 @@ function Post() {
       console.log(error)
     } finally {
       setLoading(false)
-      console.log(id)
-        console.log(userId)
-    }
+        
+}
+}
+
+async function addNewComment({ full_name, avatar_url, username, comment }){
+  return(
+    <div>
+      test
+    </div>
+  )
 }
 
   return (
     <div>
+    <div className="w-5/5 border border-gray-600 h-auto  border-t-0">
+    <div className="flex flex-shrink-0 p-4 pb-0">
+            <a href="#" className="flex-shrink-0 group block">
+              <div className="flex items-center">
+                <div>
+                <SidebarAvatar
+                  url={post.avatar_url}
+                  size={50}
+                />
+              </div>
+                <div className="ml-3">
+                  <p className="text-base leading-6 font-medium text-white">
+                    {post.full_name}<br />
+                    <span className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                        @{post.username} {post.created_at}
+                      </span>
+                       </p>
+                </div>
+              </div>
+            </a>
+        </div>
+        <div className="pl-16">
+            <p className="text-base width-auto font-medium text-white flex-shrink">
+              {post.description}
+            </p>
+            <br/>
+            <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg xl:aspect-w-7 xl:aspect-h-8 left 20">
+            <div>
+            
+            </div>
+                </div>
 
-    </div>
+                <PhotoForOthers
+            url={post.photo_url}
+            size={300}
+          /> 
+          </div>
+          <hr className="border-gray-600" />
+
+                
+          </div>
+
+<div className="flex">
+<div className="m-2 w-15 py-1">
+<SidebarAvatar
+    url={avatar_url}
+    size={50}
+/>
+</div>
+<div className="flex-1 px-2 pt-2 mt-2">
+<div>
+<label htmlFor="description">add a comment</label>
+<input
+id="comment"
+type="text"
+value={comment || ''}
+onChange={(e) => setComment(e.target.value)}
+/>
+</div>
+</div>
+
+</div>
+<div className="flex-1">
+                        <button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-right" onClick={() => addNewComment({ full_name, avatar_url, username, comment })}
+          disabled={loading}>
+                            Comment
+                          </button>
+                    </div>
+</div>
+          
+    
   )
 }
 
