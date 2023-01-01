@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import SidebarAvatar from '../../components/SidebarAvatar';
 import PhotoForOthers from '../../components/PhotoForOthers'
+import Comments from '../../components/Comments'
 
 function Post() {
 
@@ -15,7 +16,9 @@ function Post() {
   const [full_name, setFullName] = useState(null)
   const [username, setUsername] = useState(null)
   const [post, setPost] = useState({})
-  const [comment, setComment] = useState(null)
+  const [comments, setComments] = useState(null) 
+  const [orderBy, setOrderBy] = useState('created_at')
+  let commentData = {};
 
 
   useEffect(() => {
@@ -23,8 +26,14 @@ function Post() {
         const { userId, id } = router.query;
         getProfile(userId)
         getPost(id)
+        if(comments == null){
+          getComments()
+        }
+
+        console.log(comments)
+
     }
-  }, [router.isReady])
+  }, [router.isReady , comments])
 
   
 
@@ -36,7 +45,6 @@ function Post() {
             .filter("id", "eq", id)
             .single();
 
-            console.log(data)
         if (error) {
             console.log(error);
         } else {
@@ -51,6 +59,8 @@ function Post() {
             
 
     }
+
+
 }
 
   async function getProfile( userId ) {
@@ -83,12 +93,32 @@ function Post() {
 }
 }
 
-async function addNewComment({ full_name, avatar_url, username, comment }){
-  return(
-    <div>
-      test
-    </div>
-  )
+async function getComments() {
+  try{
+      const {data, error} = await supabase
+      .from("comments")
+      .select("*")
+      .order(orderBy, {ascending: false})
+
+
+  if (error) {
+      console.log(error);
+  } else {
+    let commentData = data
+    setComments(commentData)
+
+  }
+  }catch (error) {
+      alert('Error loading user data!')
+       console.log(error)
+     } finally {
+       setLoading(false)
+
+      
+
+}
+
+
 }
 
   return (
@@ -135,7 +165,7 @@ async function addNewComment({ full_name, avatar_url, username, comment }){
                 
           </div>
 
-<div className="flex">
+{/* <div className="flex">
 <div className="m-2 w-15 py-1">
 <SidebarAvatar
     url={avatar_url}
@@ -148,20 +178,40 @@ async function addNewComment({ full_name, avatar_url, username, comment }){
 <input
 id="comment"
 type="text"
-value={comment || ''}
-onChange={(e) => setComment(e.target.value)}
+value={comments || ''}
+onChange={(e) => setComments(e.target.value)}
 />
 </div>
 </div>
 
-</div>
-<div className="flex-1">
+</div> */}
+{/* <div className="flex-1">
                         <button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-right" onClick={() => addNewComment({ full_name, avatar_url, username, comment })}
           disabled={loading}>
                             Comment
                           </button>
+                    </div> */}
+
+                    <hr className="border-gray-600" />
+
+                    <h2> Comments </h2>  
+
+                    {comments && (
+                    <div>
+                        {comments.map(comment => (
+                        <Comments
+                        key={comment.id}
+                        comment={comment}
+                        username = {username}
+                        />
+                    ))}
                     </div>
+                )}
+
+              
+
 </div>
+
           
     
   )
