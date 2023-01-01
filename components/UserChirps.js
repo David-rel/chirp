@@ -16,12 +16,8 @@ function UserChirps({ post, username }) {
   const [same, setSame] = useState(null)
   const user = useUser()
 
-    
-  console.log(post.username)
-  console.log(username)
 
   if(post.username == username){
-    console.log(true)
     return (
         <div className="w-5/5 border border-gray-600 h-auto  border-t-0">
         <div className="flex flex-shrink-0 p-4 pb-0">

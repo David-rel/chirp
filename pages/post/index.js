@@ -18,20 +18,19 @@ function Post() {
   const [post, setPost] = useState({})
   const [comments, setComments] = useState(null) 
   const [orderBy, setOrderBy] = useState('created_at')
-  let commentData = {};
+  const [comment, setComment] = useState(null)
+  const [id, setId] = useState(null)
 
 
   useEffect(() => {
     if(router.isReady){
         const { userId, id } = router.query;
+        setId(id);
         getProfile(userId)
         getPost(id)
         if(comments == null){
           getComments()
         }
-
-        console.log(comments)
-
     }
   }, [router.isReady , comments])
 
@@ -121,6 +120,30 @@ async function getComments() {
 
 }
 
+async function addNewComment({ full_name, avatar_url, username, comment }){
+  try {
+    setLoading(true)
+
+    const updates = {
+      username,
+      avatar_url,
+      full_name,
+      post_id: id,
+      comment,
+      created_at: new Date().toISOString(),
+    }
+    
+    let { error } = await supabase.from('comments').insert(updates)
+    if (error) throw error
+    alert('New Comment added!')
+  } catch (error) {
+    alert('Error adding the comment!')
+    console.log(error)
+  } finally {
+    setLoading(false)
+  }
+}
+
   return (
     <div>
     <div className="w-5/5 border border-gray-600 h-auto  border-t-0">
@@ -165,7 +188,7 @@ async function getComments() {
                 
           </div>
 
-{/* <div className="flex">
+<div className="flex">
 <div className="m-2 w-15 py-1">
 <SidebarAvatar
     url={avatar_url}
@@ -178,19 +201,20 @@ async function getComments() {
 <input
 id="comment"
 type="text"
-value={comments || ''}
-onChange={(e) => setComments(e.target.value)}
+value={comment || ''}
+onChange={(e) => setComment(e.target.value)}
 />
 </div>
 </div>
 
-</div> */}
-{/* <div className="flex-1">
+</div>
+<div className="flex-1">
                         <button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-right" onClick={() => addNewComment({ full_name, avatar_url, username, comment })}
           disabled={loading}>
                             Comment
                           </button>
-                    </div> */}
+                    </div>
+                    <br/>
 
                     <hr className="border-gray-600" />
 
