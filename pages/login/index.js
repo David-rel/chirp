@@ -13,7 +13,6 @@ const Login = () => {
     const [password, setPassword] = useState(null);
     const [loading, setLoading] = useState(null)
 
-
     if(user) {
         router.push(`/profile?id=${user.id}`);
     }
@@ -37,12 +36,6 @@ const Login = () => {
     return (
         <div>
           <h1>Login</h1>
-          
-        {/* <Auth
-            appearance={{theme: ThemeSupa}}
-            supabaseClient={supabaseClient}
-            className="auth"
-        /> */}
         Email:
         <input
           id="email"

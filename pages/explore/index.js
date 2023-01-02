@@ -316,7 +316,7 @@ useEffect(() => {
                         </div>
                         <div class="flex-1 px-4 py-2 m-2">
                             <a href="" class=" float-right">
-                                <button class="bg-transparent hover:bg-green-500 text-black font-semibold hover:text-black py-2 px-4 border border-black hover:border-transparent rounded-full">
+                                <button class="bg-transparent hover:bg-green-500 text-green font-semibold hover:text-green py-2 px-4 border border-black hover:border-transparent rounded-full">
                                     Follow
                                   </button>  
                             </a>

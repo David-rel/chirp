@@ -57,10 +57,7 @@ function Post() {
            } finally {
              setLoading(false)
             
-
     }
-
-
 }
 
   async function getProfile( userId ) {
@@ -114,7 +111,6 @@ async function getComments() {
      } finally {
        setLoading(false)
 }
-
 }
 
 
