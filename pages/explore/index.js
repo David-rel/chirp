@@ -5,6 +5,7 @@ import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import SidebarAvatar from '../../components/SidebarAvatar'
 import Link from 'next/link'
+import { StyledLink } from '@nextui-org/react'
 
 function ExploreChirps() {
   const [posts, setPosts] = useState(null)
@@ -19,6 +20,7 @@ function ExploreChirps() {
   const [username, setUsername] = useState(null)
   const [orderBy, setOrderBy] = useState('created_at')
   const [photo_url, setPhotoUrl] = useState(null)
+  const [likes, setLikes] = useState(null)
 
 
 
@@ -31,8 +33,12 @@ function ExploreChirps() {
         return; 
       }
       getProfile(id)
+      if(likes == null){
+        fetchLikes()
+      }
+      console.log(likes)
     }
-  }, [router.isReady])
+  }, [router.isReady, likes])
 
   async function getProfile( id ) {
     try {
@@ -82,6 +88,24 @@ useEffect(() => {
 
   fetchPosts()
 }, [orderBy, setPosts])
+
+  const fetchLikes = async () => {
+    const { data, error } = await supabase
+    .from('likes')
+    .select('*')
+
+    if(error) {
+      setFetchError('could not fetch likes')
+      setLikes(null)
+      console.log(error)
+    }
+
+    if(data){
+      setLikes(data)
+      setFetchError(null)
+    }
+  }
+
 
   return (
     <div className="flex w-full">
@@ -177,6 +201,7 @@ useEffect(() => {
                         key={post.id}
                         post={post}
                         userId = {id}
+                        likes = {likes}
                         />
                     ))}
                     </div>

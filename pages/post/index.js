@@ -20,6 +20,7 @@ function Post() {
   const [orderBy, setOrderBy] = useState('created_at')
   const [comment, setComment] = useState(null)
   const [id, setId] = useState(null)
+  const [likes, setLikes] = useState(null)
 
 
   useEffect(() => {
@@ -112,13 +113,10 @@ async function getComments() {
        console.log(error)
      } finally {
        setLoading(false)
-
-      
+}
 
 }
 
-
-}
 
 async function addNewComment({ full_name, avatar_url, username, comment }){
   try {

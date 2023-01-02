@@ -1,3 +1,4 @@
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -6,16 +7,162 @@ import PhotoForOthers from "./PhotoForOthers"
 import SidebarAvatar from "./SidebarAvatar"
 
 
-function Chirps({ post, userId }) {
+function Chirps({ post, userId, likes }) {
 
-  const router = useRouter()
+    const [fetchError, setFetchError] = useState(null)
+    const supabase = useSupabaseClient()
+    const [loading, setLoading] = useState(null)
+    const router = useRouter()
+    const [orderBy, setOrderBy] = useState('created_at')
+    const [like, setLike] = useState(post.likes)
+    const [id, setId] = useState(null)
+    const [username, setUsername] = useState(null)
+    let num = 0
 
-  const [likes, setLikes] = useState(0)
-  const [isLiked, setIsLiked] = useState(false)
 
-    
 
+    useEffect(() => {
+      if(router.isReady){
+          const { id } = router.query;
+          setId(id)
+          getProfile(id)
+
+        }
+    }, [router.isReady])
+
+   
   
+    async function getProfile(id) {
+      try {
+        setLoading(true)
+  
+        const { data, error, status } = await supabase
+          .from('profiles')
+          .select("*")
+          .eq('id', id)
+          .single()
+  
+        if (error && status !== 406) {
+          throw error
+        }
+  
+        if (data) {
+          setUsername(data.username)
+         }
+      } catch (error) {
+       // alert('Error loading user data!')
+        console.log(error)
+      } finally {
+        setLoading(false)
+      }
+  }
+
+
+
+  async function Like(){
+    for(let i = 0; i < likes.length; i++){
+      if(likes[i].username != username){        
+        if(i < likes.length){
+          console.log("this ran through")
+          continue
+        }
+      }
+      else{
+        if(likes[i].post_id == post.id){
+          console.log("theres a like here")
+          num = likes[i].id
+        }else{
+          continue
+        }
+       
+      }
+    }
+    LikeData()
+  }
+
+  async function LikeData(){
+    if(num == 0){
+      setLike(like+1)
+        console.log(like)
+        try {
+          setLoading(true)
+          let { error } = await supabase
+          .from('posts')
+          .update({likes: like+1})
+          .eq("id", post.id)
+
+          if (error) throw error
+          alert('Like added!')
+        } catch (error) {
+          alert('Error adding the like!')
+          console.log(error)
+        } finally {
+          setLoading(false)
+          CreateLikedPerson()
+        }
+    }
+    else{
+      setLike(like-1)
+        console.log(like)
+        try {
+          setLoading(true)
+          let { error } = await supabase
+          .from('posts')
+          .update({likes: like-1})
+          .eq("id", post.id)
+
+          if (error) throw error
+          alert('Like deleted!')
+        } catch (error) {
+          alert('Error deleting the like!')
+          console.log(error)
+        } finally {
+          setLoading(false)
+            DeleteLikedPerson()
+
+        }
+    }
+    
+  }
+
+  async function DeleteLikedPerson(){
+    try {
+      
+      let { error } = await supabase
+      .from('likes')
+      .delete()
+      .eq('id', num)
+      if (error) throw error
+      alert('Like data deleted!')
+    } catch (error) {
+      alert('Error updating the like!')
+      console.log(error)
+    } finally {
+      num = 0;
+      window.location.reload()
+
+
+    }
+  }
+
+  async function CreateLikedPerson(){
+    try {
+      const updates = {
+        username: username,
+        post_id: post.id,
+        is_liked: true
+      }
+      let { error } = await supabase.from('likes').upsert(updates)
+      if (error) throw error
+      alert('Like updated!')
+    } catch (error) {
+      alert('Error updating the like!')
+      console.log(error)
+    } finally {
+      window.location.reload()
+
+    }
+  }
 
 
   return (
@@ -29,14 +176,14 @@ function Chirps({ post, userId }) {
                       size={50}
                     />
                   </div>
-                    <div className="ml-3">
+                    <ditav className="ml-3">
                       <p className="text-base leading-6 font-medium text-white">
                         {post.full_name}<br />
                         <span className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
                             @{post.username} {post.created_at}
                           </span>
                            </p>
-                    </div>
+                    </ditav>
                   </div>
                 </a>
             </div>
@@ -74,7 +221,7 @@ function Chirps({ post, userId }) {
 
                             <div className="flex-1 text-center py-2 m-2">
                                 <a onClick={() => Like()} className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
-                                    <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg> {likes}
+                                    <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg> {post.likes}
                                 </a>
                             </div>
 
