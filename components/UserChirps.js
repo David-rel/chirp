@@ -19,7 +19,7 @@ function UserChirps({ post, username }) {
 
   if(post.username == username){
     return (
-        <div className="w-5/5 border border-gray-600 h-auto  border-t-0">
+        <div className=" w-5/5 xxs:w-11/12 xs:w-5/5 border border-gray-600 h-auto border-t-0">
         <div className="flex flex-shrink-0 p-4 pb-0">
                 <a href="#" className="flex-shrink-0 group block">
                   <div className="flex-none xxs:flex-none xs:flex items-center">
@@ -40,8 +40,8 @@ function UserChirps({ post, username }) {
                   </div>
                 </a>
             </div>
-            <div className="pl-16 xxs:pl-4 xs:pl-16">
-                <p className="text-base width-auto font-medium text-white flex-shrink">
+            <div className="pl-16 xxs:pl-1 xs:pl-16">
+                <p className="text-base width-auto font-small text-white flex-shrink">
                   {post.description}
                 </p>
                 <br/>
