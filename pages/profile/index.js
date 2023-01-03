@@ -129,9 +129,9 @@ const Profile = () => {
               <svg className="mr-4 h-6 w-6 xxs:w-0 sm:w-6 xs:w-0 xxs:w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
               <p className='xxs:text-xxxs xs:text-base xs:visible xxs:invisible mt-0 hover:bg-green-800'>Profile</p>
 
-            </Link >
-                <Link href={`/home?id=${id}`} className="xxs:pl-32 xs:pl-0">
-                <button type='button' disabled className="bg-green-600 w-48 sm:w-48 xs:w-24 xxs:opacity-0 xxs:cursor-not-allowed xs:opacity-100 xs:cursor-default mt-5 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-full">
+              </Link >
+                <Link href={`/home?id=${id}`} className="">
+                <button type='button' className="bg-green-600 w-48 xs:w-24 sm:w-48 xs:h-auto xxs:w-0 xxs:h-0 mt-5 hover:bg-green-300 text-white font-bold xxs:invisible xs:visible xs:py-2 xs:px-4 xxs:py-0 xxs:px-0 rounded-full xxs:text-xxxs xs:text-base">
                 Chirp
               </button>
               </Link>
@@ -139,8 +139,8 @@ const Profile = () => {
 
           {!user ?
             
-            <Link href="/login" className="xxs:pl-32 xs:pl-0">
-                <button className="bg-green-600 w-48 xxs:w-24 sm:w-48 xs:w-24 xxs:opacity-0 xxs:cursor-not-allowed xs:opacity-100 xs:cursor-default mt-5 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-full">
+            <Link href="/login" className="">
+                <button type='button' className="bg-green-600 w-48 xs:w-24 sm:w-48 xs:h-auto xxs:w-0 xxs:h-0 mt-5 hover:bg-green-300 text-white font-bold xxs:invisible xs:visible xs:py-2 xs:px-4 xxs:py-0 xxs:px-0 rounded-full xxs:text-xxxs xs:text-base">
                 Login
               </button>
               </Link>
