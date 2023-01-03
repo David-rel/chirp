@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "tailwind": "tailwindcss build ./src/styles.css -o ./public/styles.css"
   },
   "dependencies": {
     "@next/font": "13.0.7",
