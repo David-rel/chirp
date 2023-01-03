@@ -45,7 +45,7 @@ const Login = () => {
         Password:
         <input
           id="password"
-          type="text"
+          type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
 
