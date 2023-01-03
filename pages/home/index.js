@@ -169,7 +169,7 @@ useEffect(() => {
             :
             <div className="flex-shrink-0 flex hover:bg-blue-00 rounded-full p-4 mt-12 mr-2 ">
           <Link href="/" className="flex-shrink-0 group block">
-            <div className="flex items-center xs:w-20 sm:w-auto">
+            <div className="flex items-center xxs:w-20 xs:w-auto">
               <div>
               <SidebarAvatar
                 url={avatar_url}
@@ -189,7 +189,7 @@ useEffect(() => {
         </div>
           }
     </div>  
-      <div className="w-full xxs:width-98 xs:w-96 sm:w-full border border-gray-600 h-auto border-t-0">              
+      <div className="w-full xxs:width-full xs:w-96 sm:w-full border border-gray-600 h-auto border-t-0">              
                 <div className="flex">
                     <div className="flex-1 m-2">
                         <h2 className="px-4 py-2 text-xl font-semibold text-white">Home, Welcome to Chirp, {full_name || "unknown"}</h2>
