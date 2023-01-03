@@ -160,8 +160,8 @@ useEffect(() => {
         
             :
             <div className="flex-shrink-0 flex hover:bg-blue-00 rounded-full p-4 mt-12 mr-2 ">
-          <Link href="/" className="flex-shrink-0 group block">
-            <div className="flex items-center xs:w-20 sm:w-auto">
+          <Link  href={`/profile?id=${id}`}  className="flex-shrink-0 group block">
+            <div className="flex items-center xxs:w-20 xs:w-auto">
               <div className='xxs:pr-6 xs:pr-0'>
               <SidebarAvatar
                 url={avatar_url}
