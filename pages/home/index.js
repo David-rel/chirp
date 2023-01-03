@@ -161,7 +161,7 @@ useEffect(() => {
           {!user ?
             
             <Link href="/login">
-                <button className="bg-green-600 w-48 xxs:w-24 xs:w-24 sm:w-48 mt-5 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-full">
+                <button className="bg-green-600 w-48 xxs:w-24 sm:w-48 xs:w-24 xxs:opacity-0 xxs:cursor-not-allowed xs:opacity-100 xs:cursor-default mt-5 hover:bg-green-300 text-white font-bold py-2 px-4 rounded-full">
                 Login
               </button>
               </Link>

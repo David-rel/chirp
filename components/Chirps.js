@@ -166,11 +166,11 @@ function Chirps({ post, userId, likes }) {
 
 
   return (
-    <div className="w-5/5 border border-gray-600 h-auto  border-t-0">
+    <div className="w-5/5 xxs:w-10/12 xs:w-11/12 border border-gray-600 h-auto xs:border-t-0 border-r-0">
         <div className="flex flex-shrink-0 p-4 pb-0">
                 <a href="#" className="flex-shrink-0 group block">
-                  <div className="flex items-center">
-                    <div>
+                  <div className="flex-none xxs:flex-none xs:flex items-center">
+                    <div >
                     <SidebarAvatar
                       url={post.avatar_url}
                       size={50}
@@ -187,7 +187,7 @@ function Chirps({ post, userId, likes }) {
                   </div>
                 </a>
             </div>
-            <div className="pl-16">
+            <div className="pl-16 xxs:pl-1 xs:pl-16">
                 <p className="text-base width-auto font-medium text-white flex-shrink">
                   {post.description}
                 </p>
@@ -197,11 +197,14 @@ function Chirps({ post, userId, likes }) {
                 
                 </div>
                     </div>
+              <div className=" w-12/12">
 
-                    <PhotoForOthers
+              <PhotoForOthers
                 url={post.photo_url}
                 size={300}
               /> 
+              </div>
+                   
 
 
               
@@ -230,11 +233,7 @@ function Chirps({ post, userId, likes }) {
                                     <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"></path></svg>
                             </a>
                             </div>
-                            <div className="flex-1 text-center py-2 m-2">
-                                <a href="#" className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
-                                    <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                            </a>
-                            </div>
+                            
                         </div>
                     </div>
 
