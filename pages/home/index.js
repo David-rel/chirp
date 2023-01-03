@@ -189,7 +189,7 @@ useEffect(() => {
         </div>
           }
     </div>  
-      <div className="w-full xxs:width-full xs:w-96 sm:w-full border border-gray-600 h-auto border-t-0">              
+      <div className="w-full xxs:width-80 xs:w-96 sm:w-full border border-gray-600 h-auto border-t-0">              
                 <div className="flex">
                     <div className="flex-1 m-2">
                         <h2 className="px-4 py-2 text-xl font-semibold text-white">Home, Welcome to Chirp, {full_name || "unknown"}</h2>
