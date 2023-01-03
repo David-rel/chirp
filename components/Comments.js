@@ -19,11 +19,11 @@ function Comments({ comment, username }) {
                     <div class="p-4 mb-4 text-base bg-gray-900 dark:bg-gray-900">
                         {comment.full_name}
                     </div>
-                    <div class="p-0 mb-4 text-base  bg-gray-900 dark:bg-gray-900">
+                    <div class="p-0 mb-4 text-base bg-gray-900 dark:bg-gray-900">
                         @{comment.username}
                     </div> 
                 </div>
-                <p class="text-gray-500 dark:text-gray-400 dark:bg-gray-900">{comment.comment}</p>
+                <p class="text-gray-500 dark:text-gray-900 dark:bg-gray-900 bg-gray-900">{comment.comment}</p>
                 </div>
         
           )
