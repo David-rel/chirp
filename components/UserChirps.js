@@ -19,7 +19,7 @@ function UserChirps({ post, username }) {
 
   if(post.username == username){
     return (
-        <div className=" w-5/5 xxs:w-11/12 xs:w-5/5 border border-gray-600 h-auto border-t-0">
+        <div className="xxs:w-10/12 xs:w-11/12 border border-gray-600 h-auto border-t-0">
         <div className="flex flex-shrink-0 p-4 pb-0">
                 <a href="#" className="flex-shrink-0 group block">
                   <div className="flex-none xxs:flex-none xs:flex items-center">
@@ -50,11 +50,12 @@ function UserChirps({ post, username }) {
                 
                 </div>
                     </div>
-
-                    <PhotoForOthers
+              <div className="pr-5 w-12/12">
+                <PhotoForOthers
                 url={post.photo_url}
                 size={300}
-              /> 
+              /> </div>
+                    
               </div>
               </div>
     )
