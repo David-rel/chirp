@@ -23,7 +23,7 @@ function Comments({ comment, username }) {
                         @{comment.username}
                     </div> 
                 </div>
-                <p class="text-gray-500 dark:text-gray-900 dark:bg-gray-900 bg-gray-900">{comment.comment}</p>
+                <p class="text-black-500 dark:text-black-900 dark:bg-gray-900 bg-gray-900">{comment.comment}</p>
                 </div>
         
           )

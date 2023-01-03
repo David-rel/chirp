@@ -135,6 +135,7 @@ async function addNewComment({ full_name, avatar_url, username, comment }){
     console.log(error)
   } finally {
     setLoading(false)
+    window.location.reload()
   }
 }
 
