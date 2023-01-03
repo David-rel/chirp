@@ -26,6 +26,10 @@ module.exports = {
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
     },
+    fontSize: {
+      xxxs: ['1px', '1px'],
+      base: ['16px', '24px'],
+    },
   },
   variants:{
     extend: {},
