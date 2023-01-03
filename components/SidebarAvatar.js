@@ -34,7 +34,7 @@ function SidebarAvatar({  url, size }) {
         <img
           src={avatarUrl}
           alt="Avatar"
-          className="avatar image"
+          className=""
           style={{ height: size, width: size }}
         />
       ) : (

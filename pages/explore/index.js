@@ -161,8 +161,8 @@ useEffect(() => {
             :
             <div className="flex-shrink-0 flex hover:bg-blue-00 rounded-full p-4 mt-12 mr-2 ">
           <Link href="/" className="flex-shrink-0 group block">
-            <div className="flex items-center xxs:w-20 xs:w-auto">
-              <div>
+            <div className="flex items-center xs:w-20 sm:w-auto">
+              <div className='xxs:pr-6 xs:pr-0'>
               <SidebarAvatar
                 url={avatar_url}
                 size={50}
@@ -172,7 +172,7 @@ useEffect(() => {
                 <p className="text-base leading-6 font-medium text-white xxs:text-xxxs xxs:invisible xs:text-base xs:visible">
                   {full_name || "unknown"}
                 </p>
-                <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 xxs:text-xxxs xxs:invisible  xs:text-base xs:visible transition ease-in-out duration-150">
+                <p className="text-base leading-6 font-medium text-white xxs:text-xxxs xxs:invisible xs:text-base xs:visible">
                   @{username || "unknown"}
                 </p>
               </div>
@@ -222,7 +222,7 @@ useEffect(() => {
                             <h2 class="px-4 py-2 text-xl w-48 font-semibold text-white">Nerd trends</h2>
                         </div>
                         <div class="flex-1 px-4 py-2 m-2">
-                            <a href="#" class=" text-2xl rounded-full text-white hover:bg-green-800 hover:text-green-300 float-right">
+                            <a href="#" class=" text-2xl rounded-full text-white float-right">
                                 <svg class="m-2 h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </a>
                         </div>
