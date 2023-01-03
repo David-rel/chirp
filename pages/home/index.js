@@ -210,7 +210,7 @@ useEffect(() => {
                         size={50}
                     />
                     </div>
-                    <div className="flex-1 px-2 pt-2 mt-2">
+                    <div className="flex-1 xxs:flex-none xs:flex-1 px-2 pt-2 mt-2">
                     <div>
         <label htmlFor="description">What is on your mind</label>
         <input
@@ -241,7 +241,7 @@ useEffect(() => {
                     </div>
 
                     <div className="flex-1">
-                        <button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-right" onClick={() => addNewPost({ full_name, avatar_url, username, description })}
+                        <button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-right xxs:mr-60 xs:mr-8" onClick={() => addNewPost({ full_name, avatar_url, username, description })}
           disabled={loading}>
                             Chirp
                           </button>
