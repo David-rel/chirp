@@ -148,18 +148,18 @@ const Profile = () => {
             :
             <div className="flex-shrink-0 flex hover:bg-blue-00 rounded-full p-4 mt-12 mr-2 ">
           <Link  href={`/profile?id=${id}`}  className="flex-shrink-0 group block">
-            <div className="flex items-center xxs:w-20 xs:w-auto">
-              <div className='xxs:w-0 xxs:h-0 xs:pr-0'>
+            <div className="flex xxs:w-20 xs:w-auto sm:px-4">
+              <div className='xxs:w-0 xxs:h-0 xs:w-20 xs:h-10'>
               <SidebarAvatar
                 url={avatar_url}
                 size={50}
               />
               </div>
               <div className="ml-3">
-                <p className="text-base leading-6 font-medium text-white xxs:text-xxxs xxs:invisible xs:text-base xs:visible">
+                <p className="text-base leading-6 font-medium text-white xxs:text-xxxs xxs:invisible sm:text-base sm:visible">
                   {full_name || "unknown"}
                 </p>
-                <p className="text-base leading-6 font-medium text-white xxs:text-xxxs xxs:invisible xs:text-base xs:visible">
+                <p className="text-base leading-6 font-medium text-white xxs:text-xxxs xxs:invisible sm:text-base sm:visible">
                   @{username || "unknown"}
                 </p>
               </div>
