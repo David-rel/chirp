@@ -116,7 +116,7 @@ useEffect(() => {
               
               <nav className="mt-5 px-2">
                 <Link href={`/home?id=${id}`} className="group flex items-center px-2 sm:px-2 xxs:px-0 xs:px-0 py-2 text-base leading-6 font-semibold rounded-full text-green-300 hover:bg-green-800 xxs:hover:bg-black xs:hover:bg-green-800 xs:mt-0">
-              <svg className="mr-4 h-6 w-6 xxs:w-0 sm:w-6 xs:w-0" stroke="lightgreen" fill="none" viewBox="0 0 24 24">
+              <svg className="mr-4 h-6 w-6 xxs:w-0 sm:w-6 xs:w-0 xxs:w-6" stroke="lightgreen" fill="none" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"/>
               </svg>
               <p className='xxs:text-xxxs xs:text-base xs:visible xxs:invisible mt-0 hover:bg-green-800'>Home</p>
@@ -216,7 +216,7 @@ useEffect(() => {
                 
 
 
-                <div class="max-w-sm rounded-lg bg-blue-800 overflow-hidden shadow-lg m-4 mr-20">
+                <div class="max-w-sm rounded-lg bg-green-800 overflow-hidden shadow-lg m-4 mr-20">
                     <div class="flex">
                         <div class="flex-1 m-2">
                             <h2 class="px-4 py-2 text-xl w-48 font-semibold text-white">Nerd trends</h2>
@@ -240,7 +240,7 @@ useEffect(() => {
                         </div>
                         
                     </div>
-                    <hr class="border-green-600" />
+                   <hr class="border text-green-300" />
 
 
                     <div class="flex">
@@ -285,7 +285,7 @@ useEffect(() => {
 
 
                 
-                <div class="max-w-sm rounded-lg bg-blue-800 overflow-hidden shadow-lg m-4 mr-20">
+                <div class="max-w-sm rounded-lg bg-green-800 overflow-hidden shadow-lg m-4 mr-20">
                     <div class="flex">
                         <div class="flex-1 m-2">
                             <h2 class="px-4 py-2 text-xl w-48 font-semibold text-white">Who to follow</h2>
@@ -319,7 +319,7 @@ useEffect(() => {
                         </div>
                         <div class="flex-1 px-4 py-2 m-2">
                             <a href="" class=" float-right">
-                                <button class="bg-transparent hover:bg-green-500 text-green font-semibold hover:text-green py-2 px-4 border border-black hover:border-transparent rounded-full">
+                                <button class="bg-transparent text-green-400 hover:bg-green-800 font-semibold hover:text-green py-2 px-4 border border-black hover:border-transparent rounded-full">
                                     Follow
                                   </button>  
                             </a>
