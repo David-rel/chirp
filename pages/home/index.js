@@ -182,10 +182,10 @@ useEffect(() => {
               />
               </div>
               <div className="ml-3">
-                <p className="text-base leading-6 font-medium text-white xxs:text-xxxs xxs:invisible xs:text-base xs:visible">
+              <p className="text-base leading-6 font-medium text-white xxs:text-xxxs xxs:invisible sm:text-base sm:visible">
                   {full_name || "unknown"}
                 </p>
-                <p className="text-base leading-6 font-medium text-white xxs:text-xxxs xxs:invisible xs:text-base xs:visible">
+                <p className="text-base leading-6 font-medium text-white xxs:text-xxxs xxs:invisible sm:text-base sm:visible">
                   @{username || "unknown"}
                 </p>
               </div>
