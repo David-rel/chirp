@@ -211,72 +211,72 @@ useEffect(() => {
                 )}
     </div>        
 
-    <div class="w-2/5 h-12 xxs:w-0 xs:w-0 sm:w-0 md:w-0 lg:w-2/5">
+    <div className="w-2/5 h-12 xxs:w-0 xs:w-0 sm:w-0 md:w-0 lg:w-2/5">
 
                 
 
 
-                <div class="max-w-sm rounded-lg bg-green-800 overflow-hidden shadow-lg m-4 mr-20">
-                    <div class="flex">
-                        <div class="flex-1 m-2">
-                            <h2 class="px-4 py-2 text-xl w-48 font-semibold text-white">Nerd trends</h2>
+                <div className="max-w-sm rounded-lg bg-green-800 overflow-hidden shadow-lg m-4 mr-20">
+                    <div className="flex">
+                        <div className="flex-1 m-2">
+                            <h2 className="px-4 py-2 text-xl w-48 font-semibold text-white">Nerd trends</h2>
                         </div>
-                        <div class="flex-1 px-4 py-2 m-2">
-                            <a href="#" class=" text-2xl rounded-full text-white float-right">
-                                <svg class="m-2 h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <div className="flex-1 px-4 py-2 m-2">
+                            <a href="#" className=" text-2xl rounded-full text-white float-right">
+                                <svg className="m-2 h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </a>
                         </div>
                     </div>
 
     
-                    <hr class="border-green-600" />
+                    <hr className="border-green-600" />
 
-                    <div class="flex">
-                        <div class="flex-1">
-                            <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">1 . Trending</p>
-                            <h2 class="px-4 ml-2 w-48 font-bold text-white">#100DaysOfCode</h2>
-                            <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,466 Tweets</p>
+                    <div className="flex">
+                        <div className="flex-1">
+                            <p className="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">1 . Trending</p>
+                            <h2 className="px-4 ml-2 w-48 font-bold text-white">#100DaysOfCode</h2>
+                            <p className="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,466 Tweets</p>
                             
                         </div>
                         
                     </div>
-                   <hr class="border text-green-300" />
+                   <hr className="border text-green-300" />
 
 
-                    <div class="flex">
-                        <div class="flex-1">
-                            <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">2 .  Programming . Trending</p>
-                            <h2 class="px-4 ml-2 w-48 font-bold text-white">#Programming</h2>
-                            <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">8,464 Tweets</p>
+                    <div className="flex">
+                        <div className="flex-1">
+                            <p className="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">2 .  Programming . Trending</p>
+                            <h2 className="px-4 ml-2 w-48 font-bold text-white">#Programming</h2>
+                            <p className="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">8,464 Tweets</p>
                             
                         </div>
                         
                     </div>
-                    <hr class="border-green-600" />
+                    <hr className="border-green-600" />
 
 
-                    <div class="flex">
-                        <div class="flex-1">
-                            <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">3 .  Testing . Trending</p>
-                            <h2 class="px-4 ml-2 w-48 font-bold text-white">#Production</h2>
-                            <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,586 Tweets</p>
+                    <div className="flex">
+                        <div className="flex-1">
+                            <p className="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">3 .  Testing . Trending</p>
+                            <h2 className="px-4 ml-2 w-48 font-bold text-white">#Production</h2>
+                            <p className="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,586 Tweets</p>
                             
                         </div>
                         
                     </div>
-                    <hr class="border-gray-600" />
+                    <hr className="border-gray-600" />
 
 
-                    <div class="flex">
-                        <div class="flex-1">
-                            <p class="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">4 . Clones . Trending</p>
-                            <h2 class="px-4 ml-2 w-44 text-white">#twitterClone</h2>
-                            <p class="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">9,416 Tweets</p>
+                    <div className="flex">
+                        <div className="flex-1">
+                            <p className="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">4 . Clones . Trending</p>
+                            <h2 className="px-4 ml-2 w-44 text-white">#twitterClone</h2>
+                            <p className="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">9,416 Tweets</p>
                             
                         </div>
                         
                     </div>
-                    <hr class="border-gray-600" />
+                    <hr className="border-gray-600" />
 
 
                    
@@ -285,20 +285,20 @@ useEffect(() => {
 
 
                 
-                <div class="max-w-sm rounded-lg bg-green-800 overflow-hidden shadow-lg m-4 mr-20">
-                    <div class="flex">
-                        <div class="flex-1 m-2">
-                            <h2 class="px-4 py-2 text-xl w-48 font-semibold text-white">Who to follow</h2>
+                <div className="max-w-sm rounded-lg bg-green-800 overflow-hidden shadow-lg m-4 mr-20">
+                    <div className="flex">
+                        <div className="flex-1 m-2">
+                            <h2 className="px-4 py-2 text-xl w-48 font-semibold text-white">Who to follow</h2>
                         </div>
                     </div>
 
     
-                    <hr class="border-gray-600" />
+                    <hr className="border-gray-600" />
 
                         
-                    <div class="flex flex-shrink-0">
-                        <div class="flex-1 ">
-                            <div class="flex items-center w-48">
+                    <div className="flex flex-shrink-0">
+                        <div className="flex-1 ">
+                            <div className="flex items-center w-48">
                                 <div>
                                 {/* <SidebarAvatar
                                   url={avatar_url}
@@ -306,32 +306,32 @@ useEffect(() => {
                                 /> */}
                                 <img src='https://storage.googleapis.com/opensea-static/Logomark/Logomark-White.png' width={60} />
                                 </div>
-                                <div class="ml-3 mt-3">
-                                  <p class="text-base leading-6 font-medium text-white">
+                                <div className="ml-3 mt-3">
+                                  <p className="text-base leading-6 font-medium text-white">
                                     David Fales 
                                   </p>
-                                  <p class="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                                  <p className="text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
                                     @David_Rel
                                   </p>
                                 </div>
                               </div>
                             
                         </div>
-                        <div class="flex-1 px-4 py-2 m-2">
-                            <a href="" class=" float-right">
-                                <button class="bg-transparent text-green-400 hover:bg-green-800 font-semibold hover:text-green py-2 px-4 border border-black hover:border-transparent rounded-full">
+                        <div className="flex-1 px-4 py-2 m-2">
+                            <a href="" className=" float-right">
+                                <button className="bg-transparent text-green-400 hover:bg-green-800 font-semibold hover:text-green py-2 px-4 border border-black hover:border-transparent rounded-full">
                                     Follow
                                   </button>  
                             </a>
                             
                         </div>
                     </div>
-                    <hr class="border-gray-600" />
+                    <hr className="border-gray-600" />
 
                         
         
 
-                    <hr class="border-gray-600" />
+                    <hr className="border-gray-600" />
 
                    
                     
