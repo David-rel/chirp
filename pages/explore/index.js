@@ -36,7 +36,6 @@ function ExploreChirps() {
       if(likes == null){
         fetchLikes()
       }
-      console.log(likes)
     }
   }, [router.isReady, likes])
 
@@ -49,6 +48,12 @@ function ExploreChirps() {
         .select("*")
         .eq('id', id)
         .single()
+
+        if(data.username == '' || data.full_name == ''){
+          router.push(`/FinishSignup?id=${id}`)
+          console.log(username)
+          console.log(full_name)
+        }
 
       if (error && status !== 406) {
         throw error
@@ -64,6 +69,7 @@ function ExploreChirps() {
       console.log(error)
     } finally {
       setLoading(false)
+      
     }
 }
 

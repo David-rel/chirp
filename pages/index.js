@@ -25,9 +25,9 @@ const Home = () => {
         </h2>
         <br/>
         <br/>
-        <div>
-        <h4 className="grid place-items-center">
-          Login to start exploring
+            <div>
+            <h4 className="grid place-items-center">
+          Login to create your own posts
         </h4>
 
         <div className="grid place-items-center">
@@ -37,7 +37,26 @@ const Home = () => {
               </button>
               </Link>
         </div>  
+            </div>
+            <br/>
+            <br/>
+
+       
+      <div>
+      <h4 className="grid place-items-center">
+         or explore to see other posts
+        </h4>
+
+        <div className="grid place-items-center">
+        <Link href="/explore">
+                <button className="bg-green-600 w-48 mt-5 hover:bg-green-300 text-white font-bold rounded-full ">
+                explore
+              </button>
+              </Link>
+        </div> 
         </div>
+        
+
       
         <br/>
         <br/>  <br/>

@@ -34,6 +34,7 @@ function Main() {
     if(router.isReady){
       const { id } = router.query;
       getProfile(id)
+      
     }
   }, [router.isReady])
 
@@ -47,6 +48,12 @@ function Main() {
         .eq('id', id)
         .single()
 
+        if(data.username == '' || data.full_name == ''){
+          router.push(`/FinishSignup?id=${id}`)
+          console.log(username)
+          console.log(full_name)
+        }
+
       if (error && status !== 406) {
         throw error
       }
@@ -55,12 +62,15 @@ function Main() {
         setAvatarUrl(data.avatar_url)
         setFullName(data.full_name)
         setUsername(data.username)
+
+        
        }
     } catch (error) {
      alert('Error loading user data!')
       console.log(error)
     } finally {
       setLoading(false)
+      
     }
 }
 
