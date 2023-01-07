@@ -40,6 +40,9 @@ function ExploreChirps() {
   }, [router.isReady, likes])
 
   async function getProfile( id ) {
+    if(id == 1){
+      return
+    }
     try {
       setLoading(true)
 
@@ -51,8 +54,6 @@ function ExploreChirps() {
 
         if(data.username == '' || data.full_name == ''){
           router.push(`/FinishSignup?id=${id}`)
-          console.log(username)
-          console.log(full_name)
         }
 
       if (error && status !== 406) {
@@ -65,7 +66,7 @@ function ExploreChirps() {
         setUsername(data.username)
        }
     } catch (error) {
-     alert('Error loading user data!')
+     //alert('Error loading user data!')
       console.log(error)
     } finally {
       setLoading(false)

@@ -29,7 +29,6 @@ function FinishSignup() {
             .eq('id', id)
             .single()
 
-            console.log(data)
 
     
           if (error && status !== 406) {

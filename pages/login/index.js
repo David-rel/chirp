@@ -24,7 +24,6 @@ const Login = () => {
           email: email,
           password: password,
         })
-        console.log(data.user.id)
       } catch (error) {
         alert('Error adding the data!')
         console.log(error)

@@ -18,6 +18,7 @@ function Chirps({ post, userId, likes }) {
     const [id, setId] = useState(null)
     const [username, setUsername] = useState(null)
     let num = 0
+    const { uuid } = router.query
 
 
 
@@ -33,6 +34,9 @@ function Chirps({ post, userId, likes }) {
    
   
     async function getProfile(id) {
+      if(uuid == 1){
+        return
+      }
       try {
         setLoading(true)
   
@@ -60,16 +64,18 @@ function Chirps({ post, userId, likes }) {
 
 
   async function Like(){
+    if(uuid == 1){
+      router.push(`/login`)
+      return
+    }
     for(let i = 0; i < likes.length; i++){
       if(likes[i].username != username){        
         if(i < likes.length){
-          console.log("this ran through")
           continue
         }
       }
       else{
         if(likes[i].post_id == post.id){
-          console.log("theres a like here")
           num = likes[i].id
         }else{
           continue
@@ -83,7 +89,6 @@ function Chirps({ post, userId, likes }) {
   async function LikeData(){
     if(num == 0){
       setLike(like+1)
-        console.log(like)
         try {
           setLoading(true)
           let { error } = await supabase
@@ -92,7 +97,7 @@ function Chirps({ post, userId, likes }) {
           .eq("id", post.id)
 
           if (error) throw error
-          alert('Like added!')
+          //alert('Like added!')
         } catch (error) {
           alert('Error adding the like!')
           console.log(error)
@@ -103,7 +108,6 @@ function Chirps({ post, userId, likes }) {
     }
     else{
       setLike(like-1)
-        console.log(like)
         try {
           setLoading(true)
           let { error } = await supabase
@@ -112,7 +116,7 @@ function Chirps({ post, userId, likes }) {
           .eq("id", post.id)
 
           if (error) throw error
-          alert('Like deleted!')
+         // alert('Like deleted!')
         } catch (error) {
           alert('Error deleting the like!')
           console.log(error)
@@ -133,7 +137,7 @@ function Chirps({ post, userId, likes }) {
       .delete()
       .eq('id', num)
       if (error) throw error
-      alert('Like data deleted!')
+      //alert('Like data deleted!')
     } catch (error) {
       alert('Error updating the like!')
       console.log(error)
@@ -154,7 +158,7 @@ function Chirps({ post, userId, likes }) {
       }
       let { error } = await supabase.from('likes').upsert(updates)
       if (error) throw error
-      alert('Like updated!')
+     // alert('Like updated!')
     } catch (error) {
       alert('Error updating the like!')
       console.log(error)
