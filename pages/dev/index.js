@@ -92,7 +92,6 @@ function Dev() {
      Here's what I am planing on adding next
    </h2>
    <ol>
-    <li>create an encryption for id in router</li>
     <li>add follower and following logic</li>
     <li>add a live room</li>
     <li>add a DM system</li>
