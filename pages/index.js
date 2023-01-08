@@ -7,11 +7,28 @@ import router from 'next/router';
 const Home = () => {
 
   const user = useUser();
+  const Crypto = require('crypto')
 
 
   if(user){
-      router.push(`/profile?id=${user.id}`);
+
+  const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
+  const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
+  const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
+  const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
+  const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
+  let encryptedMessage = encrypt_string(user.id, encryptionMethod, key, iv)
+  console.log(encryptedMessage)
+
+
+      router.push(`/profile?id=${encryptedMessage}`);
     }
+
+    function encrypt_string(plain_text, encryptionMethod, secret, iv){
+        let encryptor = Crypto.createCipheriv(encryptionMethod, secret, iv)
+        let aes_encrypted = encryptor.update(plain_text, 'utf8', 'base64') + encryptor.final('base64')
+        return Buffer.from(aes_encrypted).toString('base64') 
+      }
 
 
   return (

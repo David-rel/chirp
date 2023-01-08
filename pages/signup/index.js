@@ -10,6 +10,8 @@ function Signup() {
     const [password, setPassword] = useState(null)
     const [loading, setLoading] = useState(null)
 
+
+
     
     
     async function Signup({ email, password }){

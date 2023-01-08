@@ -6,7 +6,6 @@ import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 import { Text, Textarea, Grid, Button } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import Link from "next/link";
-
 import SidebarAvatar from "../../components/SidebarAvatar";
 import Avatar from "../../components/Avatar";
 
@@ -21,8 +20,26 @@ const Profile = () => {
   const [website, setWebsite] = useState(null)
   const [full_name, setFullName] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
+  const Crypto = require('crypto')
+  const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
+  const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
+  const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
+  const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
+  const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
 
-    const {id}  = router.query;
+  const {id}  = router.query;
+
+
+  let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
+
+
+
+  function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
+    let buff = Buffer.from(encryptedMessage, 'base64')
+    encryptedMessage = buff.toString('utf-8')
+    let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
+    return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
+  }
 
     useEffect(() => {
         getProfile()
@@ -35,7 +52,7 @@ const Profile = () => {
           const { data, error, status } = await supabaseClient
             .from('profiles')
             .select("*")
-            .eq('id', id)
+            .eq('id', decryptedMessage)
             .single()
     
           if (error && status !== 406) {

@@ -21,6 +21,13 @@ function ExploreChirps() {
   const [orderBy, setOrderBy] = useState('created_at')
   const [photo_url, setPhotoUrl] = useState(null)
   const [likes, setLikes] = useState(null)
+  const Crypto = require('crypto')
+  const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
+  const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
+  const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
+  const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
+  const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
+  const [message, setMessage] = useState(null)
 
 
 
@@ -29,18 +36,29 @@ function ExploreChirps() {
   useEffect(() => {
     if(router.isReady){
       const { id } = router.query;
-      if(id == null){
+      let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
+      setMessage(decryptedMessage)
+      getProfile(decryptedMessage)
+      fetchLikes()
+      if(decryptedMessage == null){
         return; 
       }
-      getProfile(id)
-      if(likes == null){
-        fetchLikes()
-      }
+      getProfile(decryptedMessage)
+        console.log(likes)
+      
     }
-  }, [router.isReady, likes])
+  }, [router.isReady])
 
-  async function getProfile( id ) {
-    if(id == 1){
+  function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
+    let buff = Buffer.from(encryptedMessage, 'base64')
+    encryptedMessage = buff.toString('utf-8')
+    let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
+    return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
+  }
+
+
+  async function getProfile( decryptedMessage ) {
+    if(decryptedMessage == 1){
       return
     }
     try {
@@ -49,7 +67,7 @@ function ExploreChirps() {
       const { data, error, status } = await supabase
         .from('profiles')
         .select("*")
-        .eq('id', id)
+        .eq('id', decryptedMessage)
         .single()
 
         if(data.username == '' || data.full_name == ''){
@@ -210,7 +228,7 @@ useEffect(() => {
                         <Chirps
                         key={post.id}
                         post={post}
-                        userId = {id}
+                        userId = {message}
                         likes = {likes}
                         />
                     ))}

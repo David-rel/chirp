@@ -26,26 +26,42 @@ function Main() {
   const [uploading, setUploading] = useState(false)
   const [orderBy, setOrderBy] = useState('created_at')
   const [posts, setPosts] = useState(null)
+  const [uuid, setUuid] = useState(null)
+  const Crypto = require('crypto')
+  const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
+  const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
+  const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
+  const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
+  const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
 
 
   const { id } = router.query
 
+
+
   useEffect(() => {
     if(router.isReady){
       const { id } = router.query;
-      getProfile(id)
-      
+    let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
+      getProfile(decryptedMessage)
     }
   }, [router.isReady])
 
-  async function getProfile( id ) {
+  function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
+    let buff = Buffer.from(encryptedMessage, 'base64')
+    encryptedMessage = buff.toString('utf-8')
+    let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
+    return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
+  }
+
+  async function getProfile( decryptedMessage ) {
     try {
       setLoading(true)
 
       const { data, error, status } = await supabase
         .from('profiles')
         .select("*")
-        .eq('id', id)
+        .eq('id', decryptedMessage)
         .single()
 
         if(data.username == '' || data.full_name == ''){

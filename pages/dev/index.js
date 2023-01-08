@@ -8,19 +8,34 @@ function Dev() {
   const [info, setInfo] = useState(null)
   const [loading, setLoading] = useState(null)
   const { id } = router.query
+  const Crypto = require('crypto')
+        const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
+        const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
+        const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
+        const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
+        const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
+        const [message, setMessage] = useState(null)
 
   async function sendBack(){
     router.push(`/profile?id=${id}`)
   }
 
+  function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
+    let buff = Buffer.from(encryptedMessage, 'base64')
+    encryptedMessage = buff.toString('utf-8')
+    let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
+    return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
+  }
+
   async function sendInfo({ info }) {
     try {
       setLoading(true)
+      let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
   
   
       const updates = {
         info,
-        uuid: id,
+        uuid: decryptedMessage,
         created_at: new Date().toISOString(),
       }
       
@@ -77,6 +92,7 @@ function Dev() {
      Here's what I am planing on adding next
    </h2>
    <ol>
+    <li>fix the like and comment button yto login</li>
     <li>create an encryption for id in router</li>
     <li>add follower and following logic</li>
     <li>add a live room</li>

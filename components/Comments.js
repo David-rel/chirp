@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import SidebarAvatar from './SidebarAvatar'
 
 function Comments({ comment, username }) {
+
+   
 
     const router = useRouter()
 
@@ -29,5 +31,7 @@ function Comments({ comment, username }) {
           )
     }
 }
+
+
 
 export default Comments

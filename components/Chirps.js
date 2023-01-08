@@ -19,17 +19,35 @@ function Chirps({ post, userId, likes }) {
     const [username, setUsername] = useState(null)
     let num = 0
     const { uuid } = router.query
+    const Crypto = require('crypto')
+  const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
+  const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
+  const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
+  const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
+  const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
+  const [message, setMessage] = useState(null)
+
+  console.log(likes)
 
 
 
     useEffect(() => {
       if(router.isReady){
           const { id } = router.query;
-          setId(id)
-          getProfile(id)
+          let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
+          setMessage(id)
+          setId(decryptedMessage)
+          getProfile(decryptedMessage)
 
         }
     }, [router.isReady])
+
+    function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
+      let buff = Buffer.from(encryptedMessage, 'base64')
+      encryptedMessage = buff.toString('utf-8')
+      let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
+      return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
+    }
 
    
   
@@ -219,7 +237,7 @@ function Chirps({ post, userId, likes }) {
                         
                         <div className="flex items-center">
                             <div className="flex-1 text-center">
-                                <Link href={`/post?userId=${userId}&id=${post.id}`} className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
+                                <Link href={`/post?userId=${message}&id=${post.id}`} className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
                                     <svg className="text-center h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                                     </Link>                          
                                   </div>

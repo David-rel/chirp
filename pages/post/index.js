@@ -21,19 +21,35 @@ function Post() {
   const [comment, setComment] = useState(null)
   const [id, setId] = useState(null)
   const [likes, setLikes] = useState(null)
+  const Crypto = require('crypto')
+        const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
+        const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
+        const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
+        const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
+        const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
+        const [message, setMessage] = useState(null)
 
 
   useEffect(() => {
     if(router.isReady){
         const { userId, id } = router.query;
-        setId(id);
-        getProfile(userId)
+        
+        let decryptedMessage = decrypt_string(userId, encryptionMethod, key, iv)
+        setId(decryptedMessage);
+        getProfile(decryptedMessage)
         getPost(id)
         if(comments == null){
           getComments()
         }
     }
   }, [router.isReady , comments])
+
+  function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
+    let buff = Buffer.from(encryptedMessage, 'base64')
+    encryptedMessage = buff.toString('utf-8')
+    let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
+    return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
+  }
 
   
 
