@@ -10,23 +10,39 @@ function FinishSignup() {
     const router = useRouter()
     const supabaseClient = useSupabaseClient()
     const {id} = router.query
+    const Crypto = require('crypto')
+    const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
+    const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
+    const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
+    const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
+    const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
+    const [message, setMessage] = useState(null)
 
     useEffect(() => {
         if(router.isReady){
           const { id } = router.query;
-          getProfile(id)
+          let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
+          setMessage(decryptedMessage)
+          getProfile(decryptedMessage)
         }
       }, [router.isReady])
 
+      function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
+        let buff = Buffer.from(encryptedMessage, 'base64')
+        encryptedMessage = buff.toString('utf-8')
+        let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
+        return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
+      }
 
-    async function getProfile() {
+
+    async function getProfile(decryptedMessage) {
         try {
           setLoading(true)
     
           const { data, error, status } = await supabaseClient
             .from('profiles')
             .select("*")
-            .eq('id', id)
+            .eq('id', decryptedMessage)
             .single()
 
 
@@ -55,7 +71,7 @@ function FinishSignup() {
           }
   
           const updates = {
-            id: id,
+            id: message,
             full_name: full_name,
             username: username
           }

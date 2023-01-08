@@ -91,7 +91,7 @@ const Profile = () => {
         }
 
         const updates = {
-          id: id,
+          id: decryptedMessage,
           user_email: user?.email?.toLowerCase(),
           avatar_url: avatar_url,
           website: website,
