@@ -75,7 +75,7 @@ const Profile = () => {
 
     function signOut(){
         supabaseClient.auth.signOut();
-        router.push("/explore?uuid=1"); // localhost:3000
+        router.push("/explore?id=1"); // localhost:3000
     }
 
 

@@ -15,10 +15,10 @@ function Chirps({ post, userId, likes }) {
     const router = useRouter()
     const [orderBy, setOrderBy] = useState('created_at')
     const [like, setLike] = useState(post.likes)
-    const [id, setId] = useState(null)
+    const [uuid, setId] = useState(null)
     const [username, setUsername] = useState(null)
     let num = 0
-    const { uuid } = router.query
+    const { id } = router.query
     const Crypto = require('crypto')
   const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
   const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
@@ -27,14 +27,15 @@ function Chirps({ post, userId, likes }) {
   const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
   const [message, setMessage] = useState(null)
 
-  console.log(likes)
-
 
 
     useEffect(() => {
       if(router.isReady){
           const { id } = router.query;
-          let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
+          let decryptedMessage = "1"
+          if(id != 1){
+            decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
+          }
           setMessage(id)
           setId(decryptedMessage)
           getProfile(decryptedMessage)
@@ -52,7 +53,7 @@ function Chirps({ post, userId, likes }) {
    
   
     async function getProfile(id) {
-      if(uuid == 1){
+      if(id == 1){
         return
       }
       try {

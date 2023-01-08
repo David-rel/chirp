@@ -18,7 +18,6 @@ const Home = () => {
   const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
   const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
   let encryptedMessage = encrypt_string(user.id, encryptionMethod, key, iv)
-  console.log(encryptedMessage)
 
 
       router.push(`/profile?id=${encryptedMessage}`);
@@ -65,7 +64,7 @@ const Home = () => {
         </h4>
 
         <div className="grid place-items-center">
-        <Link href="/explore">
+        <Link href={`/explore?id=1`}>
                 <button className="bg-green-600 w-48 mt-5 hover:bg-green-300 text-white font-bold rounded-full ">
                 explore
               </button>

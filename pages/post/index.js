@@ -33,9 +33,17 @@ function Post() {
   useEffect(() => {
     if(router.isReady){
         const { userId, id } = router.query;
-        
-        let decryptedMessage = decrypt_string(userId, encryptionMethod, key, iv)
-        setId(decryptedMessage);
+        let decryptedMessage = "1"
+        setId(decryptedMessage)
+        if(userId == 1){
+          router.push(`/login`)
+          return
+        }
+
+        if(userId != 1){
+          decryptedMessage = decrypt_string(userId, encryptionMethod, key, iv)
+          setId(decryptedMessage);
+        }
         getProfile(decryptedMessage)
         getPost(id)
         if(comments == null){
@@ -68,7 +76,7 @@ function Post() {
           setPost(postData)
         }
         }catch (error) {
-            alert('Error loading user data!')
+            //alert('Error loading user data!')
              console.log(error)
            } finally {
              setLoading(false)
@@ -98,7 +106,7 @@ function Post() {
         setUsername(data.username)
        }
     } catch (error) {
-     alert('Error loading user data!')
+    // alert('Error loading user data!')
       console.log(error)
     } finally {
       setLoading(false)

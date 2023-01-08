@@ -36,15 +36,18 @@ function ExploreChirps() {
   useEffect(() => {
     if(router.isReady){
       const { id } = router.query;
-      let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
-      setMessage(decryptedMessage)
+      let decryptedMessage = id
+      if(id != 1){
+        decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
+        setMessage(decryptedMessage)
+      }
+
       getProfile(decryptedMessage)
       fetchLikes()
       if(decryptedMessage == null){
         return; 
       }
       getProfile(decryptedMessage)
-        console.log(likes)
       
     }
   }, [router.isReady])

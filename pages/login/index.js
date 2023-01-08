@@ -12,23 +12,42 @@ const Login = () => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null);
     const [loading, setLoading] = useState(null)
+    // const Crypto = require('crypto')
+    // const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
+    //   const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
+    //   const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
+    //   const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
+    //   const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
 
-    if(user) {
-        router.push(`/profile?id=${user.id}`);
-    }
+    //   function encrypt_string(plain_text, encryptionMethod, secret, iv){
+    //     let encryptor = Crypto.createCipheriv(encryptionMethod, secret, iv)
+    //     let aes_encrypted = encryptor.update(plain_text, 'utf8', 'base64') + encryptor.final('base64')
+    //     return Buffer.from(aes_encrypted).toString('base64') 
+    //   }
 
     async function Login({ email, password }){
+      let fail = false;
       try{
         setLoading(true)
         const { data, error } = await supabaseClient.auth.signInWithPassword({
           email: email,
           password: password,
         })
+
+        if(error){
+          console.log(true)
+          alert('wrong username or password try again!')
+          fail = true
+
+        }
       } catch (error) {
         alert('Error adding the data!')
         console.log(error)
       } finally {
         setLoading(false)
+        if(fail == false){
+          router.push(`/`)
+        }
       }
     }
     
