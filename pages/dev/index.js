@@ -55,7 +55,7 @@ function Dev() {
     <div>
     <div>
 
-      <h1 className='grid place-items-center bg-green-600'>Welcome to the Dev spot</h1>
+      <h1 className='grid place-items-center bg-green-600'>Welcome to the Dev platform</h1>
 
       <h4 className='grid place-items-center text-green-500'>this is where I will share my next steps for developing this website</h4>
       <br/>
@@ -94,6 +94,8 @@ function Dev() {
    <ol>
     <li>add follower and following logic</li>
     <li>add a live room</li>
+    <li>add a number for how many comments are seen</li>
+    <li>styling fix</li>
     <li>add a video meeting</li>
     <li>add a DM system</li>
     <li>update the user info page</li>
