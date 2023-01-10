@@ -225,7 +225,7 @@ useEffect(() => {
             <hr className="border-black-600" />
             </div>
             <hr className="border-black-600" />
-            {posts && (
+            {/* {posts && (
                     <div>
                         {posts.map(post => (
                         <Chirps
@@ -236,7 +236,9 @@ useEffect(() => {
                         />
                     ))}
                     </div>
-                )}
+                )} */}
+                    <h4 className='grid place-items-center text-green-500'>Hello there exploring chirps is temporarily deactivated while Chirp gets new updates thx for your patience</h4>
+
     </div>        
 
     <div className="w-2/5 h-12 xxs:w-0 xs:w-0 sm:w-0 md:w-0 lg:w-2/5">

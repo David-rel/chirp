@@ -196,20 +196,12 @@ const Profile = () => {
         updateProfile({ username, website, avatar_url: url })
       }}
     />
+          <br/>
+
     <Grid.Container gap={1}>
-            <Text h3 color='white'>Email</Text>
+            <Text h3 color='white'>Email: {user?.email}</Text>
             <Grid xs={12}>
-                <Textarea 
-                    name="email" 
-                    aria-label="email"
-                    placeholder="Article Title"
-                    fullWidth={true}
-                    rows={1}
-                    value={user?.email}
-                    disabled
-                    size="xl"
-                    
-                />
+                
                 </Grid>
                 <Text h3 color='white'>Username</Text>
             <Grid xs={12}>

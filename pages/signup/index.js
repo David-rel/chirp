@@ -26,7 +26,7 @@ function Signup() {
         console.log(error)
       } finally {
         setLoading(false)
-        alert('check your email to verify if it is you')
+        alert('wait for the admin to send a verification email to you')
       }
     }
 
