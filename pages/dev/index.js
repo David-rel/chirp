@@ -94,6 +94,7 @@ function Dev() {
    <ol>
     <li>add follower and following logic</li>
     <li>add a live room</li>
+    <li>add a video meeting</li>
     <li>add a DM system</li>
     <li>update the user info page</li>
    </ol>

@@ -20,6 +20,7 @@ function Post() {
   const [orderBy, setOrderBy] = useState('created_at')
   const [comment, setComment] = useState(null)
   const [id, setId] = useState(null)
+  const [postId, setPostId] = useState(null)
   const [likes, setLikes] = useState(null)
   const Crypto = require('crypto')
         const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
@@ -33,6 +34,7 @@ function Post() {
   useEffect(() => {
     if(router.isReady){
         const { userId, id } = router.query;
+        setPostId(id)
         let decryptedMessage = "1"
         setId(decryptedMessage)
         if(userId == 1){
@@ -146,9 +148,14 @@ async function addNewComment({ full_name, avatar_url, username, comment }){
       username,
       avatar_url,
       full_name,
-      post_id: id,
+      post_id: postId,
       comment,
       created_at: new Date().toISOString(),
+    }
+
+    if(comment == null){
+      alert("please add a comment")
+      return
     }
     
     let { error } = await supabase.from('comments').insert(updates)
