@@ -116,7 +116,7 @@ function Chirps({ post, userId, likes }) {
           .eq("id", post.id)
 
           if (error) throw error
-          //alert('Like added!')
+          alert('Like added!')
         } catch (error) {
           alert('Error adding the like!')
           console.log(error)
@@ -134,7 +134,7 @@ function Chirps({ post, userId, likes }) {
           .eq("id", post.id)
 
           if (error) throw error
-         // alert('Like deleted!')
+          alert('Like deleted!')
         } catch (error) {
           alert('Error deleting the like!')
           console.log(error)
@@ -154,7 +154,7 @@ function Chirps({ post, userId, likes }) {
       .delete()
       .eq('id', num)
       if (error) throw error
-      //alert('Like data deleted!')
+     // alert('Like data deleted!')
     } catch (error) {
       alert('Error updating the like!')
       console.log(error)
