@@ -11,9 +11,9 @@ const Home = () => {
 
 
   if(user){
-    if(user.id == '3a141528-c0e1-4808-b070-74a310afe35a'){
-        router.push(`/no`);
-    }
+    // if(user.id == '3a141528-c0e1-4808-b070-74a310afe35a'){
+    //     router.push(`/no`);
+    // }
 
   const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
   const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
