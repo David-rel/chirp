@@ -212,6 +212,11 @@ function Live() {
 
     <h1>Welcome to the chat room come say hi</h1>
 
+
+
+    <h3><a href="#footer" className='text-lg'>Scroll to bottom</a></h3>
+
+
     {messages && (
                     <div>
                         {messages.map(post => (
@@ -232,7 +237,7 @@ function Live() {
     
 
 
-  <footer class="h-20 bg-green-700">
+  <footer id="footer" class="h-20 bg-green-700">
     What would you like to say...
     <div className='flex'>
     <input className='bg-green-600'
