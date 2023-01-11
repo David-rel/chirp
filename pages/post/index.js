@@ -166,7 +166,27 @@ async function addNewComment({ full_name, avatar_url, username, comment }){
     console.log(error)
   } finally {
     setLoading(false)
+    if(comment != null){
+    }
+    CommentUpdate()
+
+    
+  }
+}
+
+async function CommentUpdate(){
+  try {
+    setLoading(true)
+    
+    let { error } = await supabase.from('posts').update({comments: post.comments+1}).eq("id", post.id)
+    if (error) throw error
+  } catch (error) {
+    alert('Error adding the data!')
+    console.log(error)
+  } finally {
+    setLoading(false)
     window.location.reload()
+    
   }
 }
 

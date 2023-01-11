@@ -107,7 +107,7 @@ function Live() {
           console.log(true)
           let { error } = await supabaseClient.from('live').upsert(updates)
           if (error) throw error
-          alert('New Message added!')
+         // alert('New Message added!')
         } catch (error) {
           alert('Error adding the data!')
           console.log(error)

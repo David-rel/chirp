@@ -70,6 +70,8 @@ const Profile = () => {
           console.log(error)
         } finally {
           setLoading(false)
+          alert("welcome back, there is now a live room, go there to spam all u want")
+
         }
     }
 
@@ -98,6 +100,7 @@ const Profile = () => {
           full_name: full_name,
           username: username
         }
+
         let { error } = await supabaseClient.from('profiles').upsert(updates)
         if (error) throw error
         alert('Profile updated!')

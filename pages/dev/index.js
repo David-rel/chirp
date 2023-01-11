@@ -93,8 +93,6 @@ function Dev() {
    </h2>
    <ol>
     <li>add follower and following logic</li>
-    <li>add a live room</li>
-    <li>add a number for how many comments are seen</li>
     <li>styling fix</li>
     <li>add a video meeting</li>
     <li>add a DM system</li>
