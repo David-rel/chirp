@@ -92,6 +92,7 @@ function Dev() {
      Here's what I am planing on adding next
    </h2>
    <ol>
+    <li>debug profile and like button</li>
     <li>add follower and following logic</li>
     <li>styling fix</li>
     <li>add a video meeting</li>

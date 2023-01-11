@@ -121,7 +121,6 @@ function Chirps({ post, userId, likes }) {
           alert('Error adding the like!')
           console.log(error)
         } finally {
-          setLoading(false)
           CreateLikedPerson()
         }
     }
@@ -140,7 +139,6 @@ function Chirps({ post, userId, likes }) {
           alert('Error deleting the like!')
           console.log(error)
         } finally {
-          setLoading(false)
             DeleteLikedPerson()
 
         }
@@ -163,6 +161,7 @@ function Chirps({ post, userId, likes }) {
     } finally {
       num = 0;
       window.location.reload()
+      setLoading(false)
 
 
     }
@@ -183,6 +182,7 @@ function Chirps({ post, userId, likes }) {
       console.log(error)
     } finally {
       window.location.reload()
+      setLoading(false)
 
     }
   }
@@ -238,6 +238,7 @@ function Chirps({ post, userId, likes }) {
                         
                         <div className="flex items-center">
                             <div className="flex-1 text-center">
+                              
                                 <Link href={`/post?userId=${message}&id=${post.id}`} className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
                                     <svg className="text-center h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg> {post.comments}
                                     </Link>                          
@@ -246,17 +247,22 @@ function Chirps({ post, userId, likes }) {
                            
 
                             <div className="flex-1 text-center py-2 m-2">
-                                <a onClick={() => Like()} className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
+                              <button disabled={loading} onClick={() => Like()} className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
                                     <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg> {post.likes}
-                                </a>
+                              </button>
+                               
                             </div>
 
                             <div className="flex-1 text-center py-2 m-2">
-                                <a href="#" className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">
-                                    <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"></path></svg>
-                            </a>
+                              
+                                <button className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">  
+                                <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"></path></svg>
+                            </button>
+                                   
                             </div>
+
                             
+          
                         </div>
                     </div>
 

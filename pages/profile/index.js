@@ -70,8 +70,7 @@ const Profile = () => {
           console.log(error)
         } finally {
           setLoading(false)
-          alert("welcome back, there is now a live room, go there to spam all u want")
-
+          alert("99% sure Ive fixed the like button, all likes have been deleted")
         }
     }
 
