@@ -70,7 +70,7 @@ const Profile = () => {
           console.log(error)
         } finally {
           setLoading(false)
-          alert("99% sure Ive fixed the like button, all likes have been deleted")
+          alert("chirping is now closed while I fix the likes, the live room is still open")
         }
     }
 
