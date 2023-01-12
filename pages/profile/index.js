@@ -70,7 +70,7 @@ const Profile = () => {
           console.log(error)
         } finally {
           setLoading(false)
-          alert("likes are fixed")
+          //alert("")
         }
     }
 
