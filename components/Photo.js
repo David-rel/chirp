@@ -9,7 +9,6 @@ function Photo({  url, size, onUpload  }) {
     const supabase = useSupabaseClient()
     const [photo_url, setPhotoUrl] = useState(null)
     const [uploading, setUploading] = useState(false)
-    const CDNURL = "https://hdjnudvqbuwndavpyhrm.supabase.co/storage/v1/object/public/images/";
     
     useEffect(() => {
       if (url) downloadImage(url)

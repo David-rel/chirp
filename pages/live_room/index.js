@@ -12,6 +12,7 @@ function Live() {
     const [avatar_url, setAvatarUrl] = useState(null)
     const [full_name, setFullName] = useState(null)
     const [messageData, setMessageData] = useState(null)
+    const [orderBy, setOrderBy] = useState('created_at')
     const [messages, setMessages] = useState(null)
     const router = useRouter()
     const supabaseClient = useSupabaseClient()
@@ -75,6 +76,9 @@ function Live() {
             const { data, error, status } = await supabaseClient
               .from('live')
               .select("*")
+              .limit(20)
+              .order(orderBy, {ascending: false})
+
       
             if (error && status !== 406) {
               throw error
@@ -214,7 +218,7 @@ function Live() {
 
 
 
-    <h3><a href="#footer" className='text-lg'>Scroll to bottom</a></h3>
+    <h3>Click <a href="#footer" className='text-lg'>here</a> to scroll down and message</h3>
 
 
     {messages && (

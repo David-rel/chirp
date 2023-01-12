@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { v4 as uuidv4 } from 'uuid';
 
-export default function Avatar({ uid, url, size, onUpload }) {
+
+export default function Avatar({ url, size, onUpload }) {
   const supabase = useSupabaseClient()
   const [avatarUrl, setAvatarUrl] = useState(null)
   const [uploading, setUploading] = useState(false)
@@ -26,24 +28,24 @@ export default function Avatar({ uid, url, size, onUpload }) {
   const uploadAvatar = async (event) => {
     try {
       setUploading(true)
+  
+      let file = event.target.files[0];
 
-      if (!event.target.files || event.target.files.length === 0) {
-        throw new Error('You must select an image to upload.')
-      }
-
-      const file = event.target.files[0]
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${uid}.${fileExt}`
-      const filePath = `${fileName}`
-
-      let { error: uploadError } = await supabase.storage
+  
+      
+  
+      const filePath = `${uuidv4()}`
+  
+      const { data, error } = await supabase
+        .storage
         .from('avatars')
-        .upload(filePath, file, { upsert: true })
-
-      if (uploadError) {
-        throw uploadError
-      }
-
+        .upload(filePath, file)  // Cooper/ASDFASDFASDF uuid, taylorSwift.png -> taylorSwift.png
+  
+      // if(data) {
+      // } else {
+      //   console.log(error)
+      // }
+  
       onUpload(filePath)
     } catch (error) {
       alert('Error uploading avatar!')

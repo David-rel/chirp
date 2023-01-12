@@ -70,7 +70,7 @@ const Profile = () => {
           console.log(error)
         } finally {
           setLoading(false)
-          //alert("")
+          alert("avatar are fixed, limiting posts and messages right now")
         }
     }
 
