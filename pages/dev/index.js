@@ -89,12 +89,11 @@ function Dev() {
     <br/>
     <br/>
     <h2 className='place-items-center bg-green-600'>
-     Here's what I am planing on adding next
+     Here's what I am planning on adding next
    </h2>
    <ol>
-    <li>debug profile and like button</li>
     <li>add follower and following logic</li>
-    <li>styling fix</li>
+    <li>get the save button to do something</li>
     <li>add a video meeting</li>
     <li>add a DM system</li>
     <li>update the user info page</li>

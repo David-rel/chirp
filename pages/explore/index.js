@@ -227,6 +227,13 @@ useEffect(() => {
                     </a>
                 </div>
             </div>
+             {/* <div className="order-by">
+            <p>Order by:</p>
+            <button onClick={() => setOrderBy('created_at')}>Time Created</button>
+            <button onClick={() => setOrderBy('title')}>Title</button>
+            <button onClick={() => setOrderBy('rating')}>Rating</button>
+            Ordered: {orderBy}
+          </div> */}
             <hr className="border-black-600" />
             </div>
             <hr className="border-black-600" />
@@ -270,7 +277,7 @@ useEffect(() => {
                         <div className="flex-1">
                             <p className="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">1 . Trending</p>
                             <h2 className="px-4 ml-2 w-48 font-bold text-white">#100DaysOfCode</h2>
-                            <p className="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,466 Tweets</p>
+                            <p className="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,466 Chirps</p>
                             
                         </div>
                         
@@ -282,7 +289,7 @@ useEffect(() => {
                         <div className="flex-1">
                             <p className="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">2 .  Programming . Trending</p>
                             <h2 className="px-4 ml-2 w-48 font-bold text-white">#Programming</h2>
-                            <p className="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">8,464 Tweets</p>
+                            <p className="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">8,464 Chirps</p>
                             
                         </div>
                         
@@ -294,7 +301,7 @@ useEffect(() => {
                         <div className="flex-1">
                             <p className="px-4 ml-2 mt-3 w-48 text-xs text-gray-400">3 .  Testing . Trending</p>
                             <h2 className="px-4 ml-2 w-48 font-bold text-white">#Production</h2>
-                            <p className="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,586 Tweets</p>
+                            <p className="px-4 ml-2 mb-3 w-48 text-xs text-gray-400">5,586 Chirps</p>
                             
                         </div>
                         

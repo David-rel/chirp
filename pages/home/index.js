@@ -105,6 +105,14 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
       alert('Please fill in all the fields correctly.')
       return
     }
+
+    if(description.length > 250){
+      alert("message needs to be under 250 characters")
+      return
+    }
+
+    console.log(description.length)
+
     
     let { error } = await supabase.from('posts').insert(updates)
     if (error) throw error
@@ -115,6 +123,10 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
   } finally {
     setLoading(false)
     if(description){
+      if(description.length > 250){
+        router.push(`/home?id=${id}`)
+        return
+      }
       router.push(`/explore?id=${id}`)
     }
   }

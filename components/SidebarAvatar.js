@@ -25,6 +25,11 @@ function SidebarAvatar({  url, size }) {
           console.log('Error downloading image: ', error)
         }
       }
+    
+
+
+      
+    
 
 
 

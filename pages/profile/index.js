@@ -70,7 +70,7 @@ const Profile = () => {
           console.log(error)
         } finally {
           setLoading(false)
-          alert("avatar are fixed, limiting posts and messages right now")
+          //alert("avatar are fixed, limiting posts and messages right now")
         }
     }
 
@@ -78,8 +78,7 @@ const Profile = () => {
         supabaseClient.auth.signOut();
         router.push("/explore?id=1"); // localhost:3000
     }
-
-
+    
     async function updateProfile({ username, full_name, website, avatar_url}) {
       try {
         if(full_name == ''){
