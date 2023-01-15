@@ -7,7 +7,7 @@ import PhotoForOthers from "./PhotoForOthers"
 import SidebarAvatar from "./SidebarAvatar"
 
 
-function Chirps({ post, userId, likes }) {
+function Chirps({ post, userId, likes, saves }) {
 
     const [fetchError, setFetchError] = useState(null)
     const supabase = useSupabaseClient()
@@ -15,6 +15,7 @@ function Chirps({ post, userId, likes }) {
     const router = useRouter()
     const [orderBy, setOrderBy] = useState('created_at')
     const [like, setLike] = useState(post.likes)
+    const [save, setSave] = useState(post.saves)
     const [uuid, setId] = useState(null)
     const [username, setUsername] = useState(null)
     let num = 0
@@ -26,6 +27,7 @@ function Chirps({ post, userId, likes }) {
   const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
   const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
   const [message, setMessage] = useState(null)
+
 
 
 
@@ -79,6 +81,128 @@ function Chirps({ post, userId, likes }) {
         setLoading(false)
       }
   }
+
+  async function Save(){
+    if(uuid == 1){
+      router.push(`/login`)
+      return
+    }
+    for(let i = 0; i < saves.length; i++){
+      if(saves[i].username != username){        
+        if(i < saves.length){
+          continue
+        }
+      }
+      else{
+        if(saves[i].post_id == post.id){
+          num = saves[i].id
+        }else{
+          continue
+        }
+       
+      }
+    }
+    SaveData()
+
+  }
+
+  async function SaveData(){
+    if(num == 0){
+      setSave(saves+1)
+        try {
+          setLoading(true)
+          let { error } = await supabase
+          .from('posts')
+          .update({saves: save+1})
+          .eq("id", post.id)
+
+          if (error) throw error
+          alert('Save added!')
+        } catch (error) {
+          alert('Error adding the save!')
+          console.log(error)
+        } finally {
+          CreateSavedPerson()
+        }
+    }
+    else{
+      setLike(save-1)
+        try {
+          setLoading(true)
+          let { error } = await supabase
+          .from('posts')
+          .update({saves: save-1})
+          .eq("id", post.id)
+
+          if (error) throw error
+          alert('Save deleted!')
+        } catch (error) {
+          alert('Error deleting the save!')
+          console.log(error)
+        } finally {
+            DeleteSavedPerson()
+
+        }
+    }
+    
+  }
+
+
+
+
+
+
+
+
+
+
+  async function DeleteSavedPerson(){
+    try {
+      
+      let { error } = await supabase
+      .from('saves')
+      .delete()
+      .eq('id', num)
+      if (error) throw error
+      alert('save data deleted!')
+    } catch (error) {
+      alert('Error updating the like!')
+      console.log(error)
+    } finally {
+      num = 0;
+      window.location.reload()
+      setLoading(false)
+    }
+  }
+
+
+  async function CreateSavedPerson(){
+    try {
+      const updates = {
+        username: username,
+        post_username: post.username,
+        post_created_at: post.created_at,
+        post_full_name: post.full_name,
+        post_avatar_url: post.avatar_url,
+        post_photo_url: post.photo_url,
+        post_description: post.description,
+        post_id: post.id,
+      }
+      let { error } = await supabase.from('saves').upsert(updates)
+      if (error) throw error
+      alert('save updated!')
+    } catch (error) {
+      alert('Error updating the save!')
+      console.log(error)
+    } finally {
+      window.location.reload()
+      setLoading(false)
+
+    }
+  }
+
+  
+  
 
 
 
@@ -255,8 +379,8 @@ function Chirps({ post, userId, likes }) {
 
                             <div className="flex-1 text-center py-2 m-2">
                               
-                                <button className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">  
-                                <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"></path></svg>
+                                <button disabled={loading} onClick={() => Save()} className="w-12 mt-1 group flex items-center text-gray-500 px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 hover:text-green-300">  
+                                <svg className="text-center h-7 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"></path></svg> {post.saves}
                             </button>
                                    
                             </div>
@@ -275,3 +399,12 @@ function Chirps({ post, userId, likes }) {
 }
 
 export default Chirps
+
+//username
+//post_username
+//post_full_name
+//post_id
+//post_created_at
+//post_photo
+//post_avatar_url
+//post_description

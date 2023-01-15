@@ -21,6 +21,7 @@ function ExploreChirps() {
   const [orderBy, setOrderBy] = useState('created_at')
   const [photo_url, setPhotoUrl] = useState(null)
   const [likes, setLikes] = useState(null)
+  const [saves, setSaves] = useState(null)
   const Crypto = require('crypto')
   const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
   const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
@@ -44,6 +45,7 @@ function ExploreChirps() {
 
       getProfile(decryptedMessage)
       fetchLikes()
+      fetchSaves()
       if(decryptedMessage == null){
         return; 
       }
@@ -135,10 +137,29 @@ useEffect(() => {
     }
   }
 
+  const fetchSaves = async () => {
+    const { data, error } = await supabase
+    .from('saves')
+    .select('*')
+
+
+
+    if(error) {
+      setFetchError('could not fetch saves')
+      setSaves(null)
+      console.log(error)
+    }
+
+    if(data){
+      setSaves(data)
+      setFetchError(null)
+    }
+  }
+
 
   return (
     <div className="flex w-full">
-<div className="text-white h-12 py-2 xxs:w-14 xs:w-28 sm:w-56 lg:w-56 md:w-56">
+  <div className="text-white h-12 py-2 xxs:w-14 xs:w-28 sm:w-56 lg:w-56 md:w-56">
   <Link  href={`/dev?id=${id}`}>
   <svg viewBox="0 0 24 24" className="h-12 w-12 text-white" fill="green"><g><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"></path></g></svg>
   </Link>
@@ -158,11 +179,11 @@ useEffect(() => {
               <svg className="mr-4 h-6 w-6 xxs:w-0 sm:w-6 xs:w-0 xxs:w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
               <p className='xxs:text-xxxs xs:text-base xs:visible xxs:invisible mt-0 hover:bg-green-800'>Messages</p>
             </a>
-            <a href="#" className="mt-1 group flex items-center px-2 sm:px-2 xs:px-0 xxs:px-0 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 text-green-300 hover:text-green-300 xxs:hover:bg-black xxs:mt-5 xs:hover:bg-green-800 xs:mt-0">
+            <Link href={`/saves?id=${id}`} className="mt-1 group flex items-center px-2 sm:px-2 xs:px-0 xxs:px-0 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 text-green-300 hover:text-green-300 xxs:hover:bg-black xxs:mt-5 xs:hover:bg-green-800 xs:mt-0">
               <svg className="mr-4 h-6 w-6 xxs:w-0 sm:w-6  xs:w-0 xxs:w-6" fill="none" strokeLinecap="round"  strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
               <p className='xxs:text-xxxs xs:text-base xs:visible xxs:invisible mt-0 hover:bg-green-800'>Bookmark</p>
 
-            </a>
+            </Link>
             <a href="#" className="mt-1 group flex items-center px-2 sm:px-2 xs:px-0 xxs:px-0 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 text-green-300 hover:text-green-300 xxs:hover:bg-black xxs:mt-5 xs:hover:bg-green-800 xs:mt-0">
               <svg className="mr-4 h-6 w-6 xxs:w-0 sm:w-6 xs:w-0 xxs:w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
               <p className='xxs:text-xxxs xs:text-base xs:visible xxs:invisible mt-0 hover:bg-green-800'>List</p>
@@ -245,6 +266,7 @@ useEffect(() => {
                         post={post}
                         userId = {message}
                         likes = {likes}
+                        saves = {saves}
                         />
                     ))}
                     </div>

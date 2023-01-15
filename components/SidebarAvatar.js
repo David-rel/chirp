@@ -22,7 +22,7 @@ function SidebarAvatar({  url, size }) {
           const url = URL.createObjectURL(data)
           setAvatarUrl(url)
         } catch (error) {
-          console.log('Error downloading image: ', error)
+        //  console.log('Error downloading image: ', error)
         }
       }
     

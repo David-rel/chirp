@@ -93,10 +93,11 @@ function Dev() {
    </h2>
    <ol>
     <li>add follower and following logic</li>
-    <li>get the save button to do something</li>
-    <li>add a video meeting</li>
+    <li>add chirp green</li>
     <li>add a DM system</li>
     <li>update the user info page</li>
+    <li>add a video meeting</li>
+
    </ol>
    
      
