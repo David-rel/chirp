@@ -20,15 +20,22 @@ const Profile = () => {
   const [website, setWebsite] = useState(null)
   const [full_name, setFullName] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
+  const [fetchError, setFetchError] = useState(null)
+  const [followers, setFollowers] = useState([])
+  const [following, setFollowing] = useState(null)
   const Crypto = require('crypto')
   const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
   const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
   const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
   const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
   const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
+  const [followerNum, setFollowerNum] = useState(0)
+  const [followingNum, setFollowingNum] = useState(0)
+
+  let followerNumber = 0
+  let followingNumber = 0
 
   const {id}  = router.query;
-
 
   let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
 
@@ -41,8 +48,62 @@ const Profile = () => {
     return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
   }
 
+
+  useEffect(() => {
+
+    const fetchFollowers = async () => {
+      const { data, error } = await supabaseClient
+      .from('follow')
+      .select('*')
+  
+      setFollowers(data)
+      //console.log(followers)
+
+
+      if(error) {
+        setFetchError('could not fetch posts')
+        console.log(error)
+      }
+  
+      if(data){
+        setFetchError(null)
+        setFollowers(data)
+        
+      }
+
+
+    }
+
+   
+
+    if(followers.length == 0){
+      fetchFollowers()
+    }
+    else{
+      //console.log(followers)
+      for(let i = 0; i < followers.length; i++){
+        if(followers[i].username_following == username){
+          followerNumber = followerNumber + 1
+        }
+      }
+      for(let i = 0; i < followers.length; i++){
+        if(followers[i].username_follower == username){
+          console.log(followers[i].username_following)
+          followingNumber = followingNumber + 1
+        }
+      }
+    }
+    setFollowerNum(followerNumber)
+    setFollowingNum(followingNumber)
+
+
+
+   
+  }, [followers])
+
     useEffect(() => {
-        getProfile()
+        getProfile()        
+        
       }, [])
     
       async function getProfile() {
@@ -64,13 +125,15 @@ const Profile = () => {
             setWebsite(data.website)
             setAvatarUrl(data.avatar_url)
             setFullName(data.full_name)
+            //setFollowers(data.followers)
+            setFollowing(data.following)
            }
         } catch (error) {
          // alert('Error loading user data!')
           console.log(error)
         } finally {
           setLoading(false)
-          alert("the save button now works, click it and then go to the bookmarks page to see your saved posts")
+          alert("you can now follow people. Yay its finally done. All Chirps have been deleted")
         }
     }
 
@@ -191,8 +254,9 @@ const Profile = () => {
           }
     </div>
     <div>
-      <br/>
-    <Avatar
+    <br/>
+      <div className="flex">
+      <Avatar
       uid={id}
       url={avatar_url}
       size={150}
@@ -201,6 +265,13 @@ const Profile = () => {
         updateProfile({ username, website, avatar_url: url })
       }}
     />
+<div className="flex-none">
+<h3>Followers: {followerNum}</h3>
+<h3>Following: {followingNum}</h3>
+</div>
+
+      </div>
+   
           <br/>
 
     <Grid.Container gap={1}>

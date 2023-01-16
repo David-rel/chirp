@@ -44,6 +44,7 @@ function Main() {
       const { id } = router.query;
     let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
       getProfile(decryptedMessage)
+      setUuid(decryptedMessage)
     }
   }, [router.isReady])
 
@@ -96,6 +97,7 @@ async function addNewPost({ username, avatar_url, full_name, description }) {
     const updates = {
       username,
       avatar_url,
+      post_uuid: uuid, 
       full_name,
       description,
       photo_url,

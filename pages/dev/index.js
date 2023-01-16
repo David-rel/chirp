@@ -41,12 +41,12 @@ function Dev() {
       
       let { error } = await supabase.from('info').insert(updates)
       if (error) throw error
-      alert('Your info was submitted')
     } catch (error) {
       alert('Error adding the data!')
       console.log(error)
     } finally {
       setLoading(false)
+      alert('Your info was submitted')
       
     }
   }

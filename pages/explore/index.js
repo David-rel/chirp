@@ -22,6 +22,7 @@ function ExploreChirps() {
   const [photo_url, setPhotoUrl] = useState(null)
   const [likes, setLikes] = useState(null)
   const [saves, setSaves] = useState(null)
+  const [followers, setFollowers] = useState(null)
   const Crypto = require('crypto')
   const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
   const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
@@ -46,6 +47,7 @@ function ExploreChirps() {
       getProfile(decryptedMessage)
       fetchLikes()
       fetchSaves()
+      fetchFollowers()
       if(decryptedMessage == null){
         return; 
       }
@@ -154,6 +156,28 @@ useEffect(() => {
       setSaves(data)
       setFetchError(null)
     }
+  }
+
+  const fetchFollowers = async () => {
+    const { data, error } = await supabase
+    .from('follow')
+    .select('*')
+
+    setFollowers(data)
+
+
+    if(error) {
+      setFetchError('could not fetch posts')
+      console.log(error)
+    }
+
+    if(data){
+      setFetchError(null)
+      setFollowers(data)
+      
+    }
+
+
   }
 
 
@@ -267,6 +291,7 @@ useEffect(() => {
                         userId = {message}
                         likes = {likes}
                         saves = {saves}
+                        follows = {followers}
                         />
                     ))}
                     </div>

@@ -7,7 +7,7 @@ import PhotoForOthers from "./PhotoForOthers"
 import SidebarAvatar from "./SidebarAvatar"
 
 
-function Chirps({ post, userId, likes, saves }) {
+function Chirps({ post, userId, likes, saves, follows }) {
 
     const [fetchError, setFetchError] = useState(null)
     const supabase = useSupabaseClient()
@@ -27,8 +27,11 @@ function Chirps({ post, userId, likes, saves }) {
   const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
   const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
   const [message, setMessage] = useState(null)
+  const [following, setFollowing] = useState(0)
 
 
+
+ //console.log(follows)
 
 
     useEffect(() => {
@@ -51,6 +54,8 @@ function Chirps({ post, userId, likes, saves }) {
       let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
       return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
     }
+
+   
 
    
   
@@ -89,9 +94,7 @@ function Chirps({ post, userId, likes, saves }) {
     }
     for(let i = 0; i < saves.length; i++){
       if(saves[i].username != username){        
-        if(i < saves.length){
-          continue
-        }
+        
       }
       else{
         if(saves[i].post_id == post.id){
@@ -312,6 +315,103 @@ function Chirps({ post, userId, likes, saves }) {
   }
 
 
+
+/**
+ * 
+ * this is the section for the follower logic
+ * 
+ * do not touch anything above this section that involves followers
+ * 
+ */
+
+
+
+
+
+async function follow(){
+  if(uuid == 1){
+    router.push(`/login`)
+    return
+  }
+  if(post.username == username){
+    alert("you cannot follow yourself")
+    return
+  }
+  console.log(post.id)
+  for(let i = 0; i < follows.length; i++){
+    if(follows[i].username_follower != username){        
+      if(i < follows.length){
+        continue
+      }
+    }
+    else{
+      if(follows[i].post_id == post.id){
+        num = follows[i].id
+      }else{
+        continue
+      }
+     
+    }
+  }
+  FollowCheck()
+}
+
+
+  function FollowCheck(){
+    console.log(num)
+    if(num == 0){
+      CreateFollower()
+    }
+    else{
+      DeleteFollower()
+    }
+  }
+
+
+  async function CreateFollower(){
+    try {
+      const updates = {
+        username_follower: username,
+        post_id: post.id,
+        username_following: post.username
+      }
+      let { error } = await supabase.from('follow').upsert(updates)
+      if (error) throw error
+      alert('follow added!')
+    } catch (error) {
+      alert('Error updating the like!')
+      console.log(error)
+    } finally {
+      window.location.reload()
+      setLoading(false)
+    }
+  }
+
+
+  async function DeleteFollower(){
+
+    try {
+      
+      let { error } = await supabase
+      .from('follow')
+      .delete()
+      .eq('id', num)
+      if (error) throw error
+      alert('follow data deleted!')
+    } catch (error) {
+      alert('Error updating the follow!')
+      console.log(error)
+    } finally {
+      num = 0;
+      window.location.reload()
+      setLoading(false)
+
+
+    }
+  }
+  
+
+
   return (
     <div className="w-5/5 xxs:w-10/12 xs:w-11/12 border border-gray-600 h-auto xs:border-t-0 border-r-0">
         <div className="flex flex-shrink-0 p-4 pb-0">
@@ -384,6 +484,11 @@ function Chirps({ post, userId, likes, saves }) {
                             </button>
                                    
                             </div>
+
+                            <button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-right xxs:mr-60 xs:mr-8" onClick={() => follow()}
+          disabled={loading}>
+                            Follow
+                          </button>
 
                             
           
