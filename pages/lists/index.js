@@ -170,6 +170,8 @@ useEffect(() => {
 
 
   return (
+    <div>
+
     <div className='flex'>
           <div className="text-white h-12 py-2 xxs:w-14 xs:w-28 sm:w-56 lg:w-56 md:w-56">
   <Link  href={`/dev?id=${id}`}>
@@ -263,7 +265,7 @@ useEffect(() => {
             <hr className="border-black-600" />
             </div>
             <hr className="border-black-600" />
-            {followers && (
+            {/* {followers && (
                     <div>
                         {followers.map(follow => (
                         <Followers
@@ -275,8 +277,7 @@ useEffect(() => {
                         />
                     ))}
                     </div>
-                )}
-                    {/* <h4 className='grid place-items-center text-green-500'>Hello there exploring chirps is temporarily deactivated while Chirp gets new updates thx for your patience</h4> */}
+                )} */}
 
     </div>     
     <div className="w-6/12 xxs:w-96 xs:w-96 sm:w-10/12 md:w-10/12 border border-gray-600 h-auto border-t-0">
@@ -295,7 +296,7 @@ useEffect(() => {
             <hr className="border-black-600" />
             </div>
             <hr className="border-black-600" />
-            {followers && (
+            {/* {followers && (
                     <div>
                         {followers.map(follow => (
                         <Following
@@ -307,11 +308,16 @@ useEffect(() => {
                         />
                     ))}
                     </div>
-                )}
-                    {/* <h4 className='grid place-items-center text-green-500'>Hello there exploring chirps is temporarily deactivated while Chirp gets new updates thx for your patience</h4> */}
+                )} */}
 
-    </div>      
+    </div>  
+
     </div>
+    <h4 className='grid place-items-center text-green-500'>Hello there exploring chirping is temporarily deactivated while Chirp gets new updates thx for your patience</h4>
+    </div>
+
+
+
   )
 }
 

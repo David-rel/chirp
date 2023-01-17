@@ -130,7 +130,7 @@ const Profile = () => {
           console.log(error)
         } finally {
           setLoading(false)
-          alert("you can now follow people. check to see who you follow by clicking the list button")
+          alert("Chirp will be shut down till: 1pm 1/18/23, due to errors in code. Live room is still active")
         }
     }
 

@@ -249,7 +249,7 @@ useEffect(() => {
                 </div>
 
                 <hr className="border-gray-600" />
-                <div className="flex">
+                {/* <div className="flex">
                     <div className="m-2 w-15 py-1">
                     <SidebarAvatar
                         url={avatar_url}
@@ -274,9 +274,9 @@ useEffect(() => {
       }}
     />   
                    </div>                    
-                </div>
+                </div> */}
 
-{/* <h4 className='grid place-items-center text-green-500'>Hello there exploring chirping is temporarily deactivated while Chirp gets new updates thx for your patience</h4> */}
+<h4 className='grid place-items-center text-green-500'>Hello there exploring chirping is temporarily deactivated while Chirp gets new updates thx for your patience</h4>
 
                 <div className="flex">
                     <div className="w-10"></div>
@@ -289,19 +289,18 @@ useEffect(() => {
                       </div>
                     </div>
 
-                    <div className="flex-1">
+                    {/* <div className="flex-1">
                         <button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-right xxs:mr-60 xs:mr-8" onClick={() => addNewPost({ full_name, avatar_url, username, description })}
           disabled={loading}>
                             Chirp
                           </button>
-                    </div>
+                    </div> */}
                 </div>
 
                 <hr className="border-green-800 border-4" />
                 <h2>Your Posts </h2> 
-                <h3>this is a test to see if deleting user posts can help with the egress</h3> 
 
-                {posts && (
+                {/* {posts && (
                     <div>
                         {posts.map(post => (
                         <UserChirps
@@ -311,7 +310,7 @@ useEffect(() => {
                         />
                     ))}
                     </div>
-                )}
+                )} */}
 
                 
 
