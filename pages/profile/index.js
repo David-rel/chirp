@@ -71,10 +71,7 @@ const Profile = () => {
         
       }
 
-
     }
-
-   
 
     if(followers.length == 0){
       fetchFollowers()
@@ -133,7 +130,7 @@ const Profile = () => {
           console.log(error)
         } finally {
           setLoading(false)
-          alert("you can now follow people. Yay its finally done. All Chirps have been deleted")
+          alert("you can now follow people. check to see who you follow by clicking the list button")
         }
     }
 
@@ -202,7 +199,7 @@ const Profile = () => {
               <p className='xxs:text-xxxs xs:text-base xs:visible xxs:invisible mt-0 hover:bg-green-800'>Bookmark</p>
 
             </Link>
-            <a href="#" className="mt-1 group flex items-center px-2 sm:px-2 xs:px-0 xxs:px-0 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 text-green-300 hover:text-green-300 xxs:hover:bg-black xxs:mt-5 xs:hover:bg-green-800 xs:mt-0">
+            <a href={`/lists?id=${id}`} className="mt-1 group flex items-center px-2 sm:px-2 xs:px-0 xxs:px-0 py-2 text-base leading-6 font-medium rounded-full hover:bg-green-800 text-green-300 hover:text-green-300 xxs:hover:bg-black xxs:mt-5 xs:hover:bg-green-800 xs:mt-0">
               <svg className="mr-4 h-6 w-6 xxs:w-0 sm:w-6 xs:w-0 xxs:w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="lightgreen" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
               <p className='xxs:text-xxxs xs:text-base xs:visible xxs:invisible mt-0 hover:bg-green-800'>List</p>
             </a>
@@ -266,8 +263,8 @@ const Profile = () => {
       }}
     />
 <div className="flex-none">
-<h3>Followers: {followerNum}</h3>
-<h3>Following: {followingNum}</h3>
+  <Link href={`/lists?id=${id}`} className="border-none bg-black text:bg-green-600"><h3>Followers: {followerNum}</h3></Link>
+  <Link href={`/lists?id=${id}`} className="border-none bg-black text:bg-green-600"><h3>Following: {followingNum}</h3></Link>
 </div>
 
       </div>

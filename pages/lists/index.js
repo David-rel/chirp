@@ -2,38 +2,52 @@ import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import Followers from '../../components/Followers'
+import Following from '../../components/Following'
 import SidebarAvatar from '../../components/SidebarAvatar'
-import Messages from "../../components/Messages"
-import { withPageAuth } from '@supabase/auth-helpers-nextjs'
 
-function Live() {
-    const [loading, setLoading] = useState(null)
-    const [username, setUsername] = useState(null)
-    const [avatar_url, setAvatarUrl] = useState(null)
-    const [full_name, setFullName] = useState(null)
-    const [messageData, setMessageData] = useState(null)
-    const [orderBy, setOrderBy] = useState('created_at')
-    const [messages, setMessages] = useState(null)
-    const router = useRouter()
-    const supabaseClient = useSupabaseClient()
-    const user = useUser()
-    const { id } = router.query
-    const Crypto = require('crypto')
+function Lists() {
+    const [posts, setPosts] = useState(null)
+  const supabase = useSupabaseClient()
+  const user = useUser()
+  const router = useRouter()
+  const [loading, setLoading] = useState(true)
+  const [fetchError, setFetchError] = useState(null)
+  const [avatar_url, setAvatarUrl] = useState(null)
+  const [full_name, setFullName] = useState(null)
+  const [username, setUsername] = useState(null)
+  const Crypto = require('crypto')
   const secret_key = process.env.NEXT_PUBLIC_SECRET_KEY
   const secret_iv = process.env.NEXT_PUBLIC_SECRET_IV
   const encryptionMethod = process.env.NEXT_PUBLIC_ENCRYPTION_METHOD
   const key = Crypto.createHash('sha512').update(secret_key, 'utf-8').digest('hex').substr(0,32)
   const iv = Crypto.createHash('sha512').update(secret_iv, 'utf-8').digest('hex').substr(0,16)
+  const [uuid, setUuid] = useState(null)
+  const [profiles, setProfile] = useState(null)
+  const [followers, setFollowers] = useState([])
+
+
+
+  const { id } = router.query
 
 
   useEffect(() => {
     if(router.isReady){
       const { id } = router.query;
-    let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
+      let decryptedMessage = id
+      if(id != 1){
+        decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
+      }
+
+      setUuid(decryptedMessage)
+
       getProfile(decryptedMessage)
-      getMessages()
+      if(decryptedMessage == null){
+        return; 
+      }
     }
   }, [router.isReady])
+
 
   function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
     let buff = Buffer.from(encryptedMessage, 'base64')
@@ -41,92 +55,114 @@ function Live() {
     let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
     return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
   }
-    
-      async function getProfile(decryptedMessage) {
-        try {
-          setLoading(true)
-    
-          const { data, error, status } = await supabaseClient
-            .from('profiles')
-            .select("*")
-            .eq('id', decryptedMessage)
-            .single()
 
-            if(data.username == '' || data.full_name == '' || data.username == null || data.full_name == null){
-              router.push(`/FinishSignup?id=${id}`)
-            }
-    
-    
-          if (error && status !== 406) {
-            throw error
-          }
-    
-          if (data) {
-            setUsername(data.username)
-            setAvatarUrl(data.avatar_url)
-            setFullName(data.full_name)
-           }
-        } catch (error) {
-         // alert('Error loading user data!')
-          console.log(error)
-        } finally {
-          setLoading(false)
-        }
+
+
+  async function getProfile( decryptedMessage ) {
+    if(decryptedMessage == 1){
+      return
     }
+    try {
+      setLoading(true)
 
-    async function getMessages(){
-        try {
-            setLoading(true)
-      
-            const { data, error, status } = await supabaseClient
-              .from('live')
-              .select("*")
-              .limit(20)
-              .order(orderBy, {ascending: false})
+      const { data, error, status } = await supabase
+        .from('profiles')
+        .select("*")
+        .eq('id', decryptedMessage)
+        .single()
 
-      
-            if (error && status !== 406) {
-              throw error
-            }
-      
-            if (data) {
-              setMessages(data)
-             }
-          } catch (error) {
-            alert('Error loading user data!')
-            console.log(error)
-          } finally {
-            setLoading(false)
-          }
-    }
-
-    
-    async function CreateMessage({ messageData, username, avatar_url }) {
-        try {
-          setLoading(true)
-      
-      
-          const updates = {
-            username,
-            avatar_url,
-            message: messageData,
-            created_at: new Date().toISOString(),
-          }
-          
-          console.log(true)
-          let { error } = await supabaseClient.from('live').upsert(updates)
-          if (error) throw error
-         // alert('New Message added!')
-        } catch (error) {
-          alert('Error adding the data!')
-          console.log(error)
-        } finally {
-            console.log(true)
-          setLoading(false)
-          window.location.reload()
+        if(data.username == '' || data.full_name == '' || data.username == null || data.full_name == null){
+          router.push(`/FinishSignup?id=${id}`)
         }
+
+      if (error && status !== 406) {
+        throw error
       }
 
+      if (data) {
+        setAvatarUrl(data.avatar_url)
+        setFullName(data.full_name)
+        setUsername(data.username)
+       }
+    } catch (error) {
+     //alert('Error loading user data!')
+      console.log(error)
+    } finally {
+      setLoading(false)
+      
+    }
+}
+
+useEffect(() => {
+
+    const fetchFollowers = async () => {
+      const { data, error } = await supabase
+      .from('follow')
+      .select('*')
+  
+      setFollowers(data)
+      //console.log(followers)
+
+
+      if(error) {
+        setFetchError('could not fetch posts')
+        console.log(error)
+      }
+  
+      if(data){
+        setFetchError(null)
+        setFollowers(data)
+        
+      }
+
+    }
+
+    if(followers.length == 0){
+      fetchFollowers()
+    }
+    else{
+     // console.log(followers)
+
+    //   for(let i = 0; i < followers.length; i++){
+    //     if(followers[i].username_following == username){
+    //       followerNumber = followerNumber + 1
+    //     }
+    //   }
+    //   for(let i = 0; i < followers.length; i++){
+    //     if(followers[i].username_follower == username){
+    //       console.log(followers[i].username_following)
+    //       followingNumber = followingNumber + 1
+    //     }
+    //   }
+    // }
+    // setFollowerNum(followerNumber)
+    // setFollowingNum(followingNumber)
+    }
+  }, [followers])
+
+      
+
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+  
+      if(error) {
+        setFetchError('could not fetch posts')
+        setProfile(null)
+        console.log(error)
+      }
+  
+      if(data){
+        setProfile(data)
+        setFetchError(null)
+      }
+    }
+  
+    fetchProfiles()
+    console.log(profiles)
+  }, [setProfile])
 
 
 
@@ -135,7 +171,7 @@ function Live() {
 
   return (
     <div className='flex'>
-   <div className="text-white h-12 py-2 xxs:w-14 xs:w-28 sm:w-56 lg:w-56 md:w-56">
+          <div className="text-white h-12 py-2 xxs:w-14 xs:w-28 sm:w-56 lg:w-56 md:w-56">
   <Link  href={`/dev?id=${id}`}>
   <svg viewBox="0 0 24 24" className="h-12 w-12 text-white" fill="green"><g><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"></path></g></svg>
   </Link>
@@ -211,68 +247,72 @@ function Live() {
         </div>
           }
     </div>
-        <div class="flex flex-col h-screen justify-between">
-        
-
-
+    <div className="w-6/12 xxs:w-96 xs:w-96 sm:w-10/12 md:w-10/12 border border-gray-600 h-auto border-t-0">
     <div>
-
-    <div class="flex1 px-4 py-4 overflow-y-auto">
-
-    <h1>Welcome to the chat room come say hi</h1>
-
-
-
-    <h3>Click <a href="#footer" className='text-lg'>here</a> to scroll down and message</h3>
-
-
-    {messages && (
+    <div className="flex">
+                <div className="flex-1 m-2 ">
+                    <h2 className="px-4 py-2 text-xl font-semibold text-white">Followers</h2>
+                </div>
+                <div className="flex-1 px-4 py-2 m-2">
+                    <a href="#" className=" text-2xl font-medium rounded-full text-white float-right cursor-not-allowed ">
+                        <svg className="m-2 h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><g><path d="M22.772 10.506l-5.618-2.192-2.16-6.5c-.102-.307-.39-.514-.712-.514s-.61.207-.712.513l-2.16 6.5-5.62 2.192c-.287.112-.477.39-.477.7s.19.585.478.698l5.62 2.192 2.16 6.5c.102.306.39.513.712.513s.61-.207.712-.513l2.16-6.5 5.62-2.192c.287-.112.477-.39.477-.7s-.19-.585-.478-.697zm-6.49 2.32c-.208.08-.37.25-.44.46l-1.56 4.695-1.56-4.693c-.07-.21-.23-.38-.438-.462l-4.155-1.62 4.154-1.622c.208-.08.37-.25.44-.462l1.56-4.693 1.56 4.694c.07.212.23.382.438.463l4.155 1.62-4.155 1.622zM6.663 3.812h-1.88V2.05c0-.414-.337-.75-.75-.75s-.75.336-.75.75v1.762H1.5c-.414 0-.75.336-.75.75s.336.75.75.75h1.782v1.762c0 .414.336.75.75.75s.75-.336.75-.75V5.312h1.88c.415 0 .75-.336.75-.75s-.335-.75-.75-.75zm2.535 15.622h-1.1v-1.016c0-.414-.335-.75-.75-.75s-.75.336-.75.75v1.016H5.57c-.414 0-.75.336-.75.75s.336.75.75.75H6.6v1.016c0 .414.335.75.75.75s.75-.336.75-.75v-1.016h1.098c.414 0 .75-.336.75-.75s-.336-.75-.75-.75z"></path></g>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <hr className="border-black-600" />
+            </div>
+            <hr className="border-black-600" />
+            {followers && (
                     <div>
-                        {messages.map(post => (
-                        <Messages
-                        key={post.id}
-                        post={post}
+                        {followers.map(follow => (
+                        <Followers
+                        key={follow.id}
+                        followers={follow}
+                        profiles={profiles}
+                        username={username}
+                        
                         />
                     ))}
                     </div>
                 )}
+                    {/* <h4 className='grid place-items-center text-green-500'>Hello there exploring chirps is temporarily deactivated while Chirp gets new updates thx for your patience</h4> */}
 
+    </div>     
+    <div className="w-6/12 xxs:w-96 xs:w-96 sm:w-10/12 md:w-10/12 border border-gray-600 h-auto border-t-0">
+    <div>
+    <div className="flex">
+                <div className="flex-1 m-2 ">
+                    <h2 className="px-4 py-2 text-xl font-semibold text-white">Following</h2>
+                </div>
+                <div className="flex-1 px-4 py-2 m-2">
+                    <a href="#" className=" text-2xl font-medium rounded-full text-white float-right cursor-not-allowed ">
+                        <svg className="m-2 h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><g><path d="M22.772 10.506l-5.618-2.192-2.16-6.5c-.102-.307-.39-.514-.712-.514s-.61.207-.712.513l-2.16 6.5-5.62 2.192c-.287.112-.477.39-.477.7s.19.585.478.698l5.62 2.192 2.16 6.5c.102.306.39.513.712.513s.61-.207.712-.513l2.16-6.5 5.62-2.192c.287-.112.477-.39.477-.7s-.19-.585-.478-.697zm-6.49 2.32c-.208.08-.37.25-.44.46l-1.56 4.695-1.56-4.693c-.07-.21-.23-.38-.438-.462l-4.155-1.62 4.154-1.622c.208-.08.37-.25.44-.462l1.56-4.693 1.56 4.694c.07.212.23.382.438.463l4.155 1.62-4.155 1.622zM6.663 3.812h-1.88V2.05c0-.414-.337-.75-.75-.75s-.75.336-.75.75v1.762H1.5c-.414 0-.75.336-.75.75s.336.75.75.75h1.782v1.762c0 .414.336.75.75.75s.75-.336.75-.75V5.312h1.88c.415 0 .75-.336.75-.75s-.335-.75-.75-.75zm2.535 15.622h-1.1v-1.016c0-.414-.335-.75-.75-.75s-.75.336-.75.75v1.016H5.57c-.414 0-.75.336-.75.75s.336.75.75.75H6.6v1.016c0 .414.335.75.75.75s.75-.336.75-.75v-1.016h1.098c.414 0 .75-.336.75-.75s-.336-.75-.75-.75z"></path></g>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <hr className="border-black-600" />
+            </div>
+            <hr className="border-black-600" />
+            {followers && (
+                    <div>
+                        {followers.map(follow => (
+                        <Following
+                        key={follow.id}
+                        followers={follow}
+                        profiles={profiles}
+                        username={username}
+                        
+                        />
+                    ))}
+                    </div>
+                )}
+                    {/* <h4 className='grid place-items-center text-green-500'>Hello there exploring chirps is temporarily deactivated while Chirp gets new updates thx for your patience</h4> */}
 
-
-
-    </div>
-    </div>
-
-    
-
-
-  <footer id="footer" class="h-20 bg-green-700">
-    What would you like to say...
-    <div className='flex'>
-    <input className='bg-green-600'
-
-    placeholder='your message here'
-    id="messageData"
-    type="text"
-  value={messageData || ''}
-  onChange={(e) => setMessageData(e.target.value)}
-    ></input>
-    <button
-          className='bg-green-500'
-          onClick={() => CreateMessage({messageData, avatar_url, username})}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-    </div>
-    
-  </footer>
-</div>
-        
+    </div>      
     </div>
   )
 }
 
-export default Live
-
-export const getServerSideProps = withPageAuth({ redirectTo: "/login" });
+export default Lists
