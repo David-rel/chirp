@@ -52,9 +52,9 @@ function Live() {
             .eq('id', decryptedMessage)
             .single()
 
-            if(data.username == '' || data.full_name == '' || data.username == null || data.full_name == null){
-              router.push(`/FinishSignup?id=${id}`)
-            }
+            // if(data.username == '' || data.full_name == '' || data.username == null || data.full_name == null){
+            //   router.push(`/FinishSignup?id=${id}`)
+            // }
     
     
           if (error && status !== 406) {

@@ -47,14 +47,18 @@ function ExploreChirps() {
       getProfile(decryptedMessage)
       fetchLikes()
       fetchSaves()
-      fetchFollowers()
-      if(decryptedMessage == null){
-        return; 
-      }
-      getProfile(decryptedMessage)
+      // fetchFollowers()
+      console.log(likes)
+      console.log(saves)
+     // console.log(followers)
+      // if(decryptedMessage == null){
+      //   return; 
+      // }
       
     }
   }, [router.isReady])
+
+
 
   function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
     let buff = Buffer.from(encryptedMessage, 'base64')
@@ -76,6 +80,8 @@ function ExploreChirps() {
         .select("*")
         .eq('id', decryptedMessage)
         .single()
+
+        console.log(data)
 
         if(data.username == '' || data.full_name == '' || data.username == null || data.full_name == null){
           router.push(`/FinishSignup?id=${id}`)
@@ -158,27 +164,27 @@ useEffect(() => {
     }
   }
 
-  const fetchFollowers = async () => {
-    const { data, error } = await supabase
-    .from('follow')
-    .select('*')
+  // const fetchFollowers = async () => {
+  //   const { data, error } = await supabase
+  //   .from('follow')
+  //   .select('*')
 
-    setFollowers(data)
+  //   setFollowers(data)
 
 
-    if(error) {
-      setFetchError('could not fetch posts')
-      console.log(error)
-    }
+  //   if(error) {
+  //     setFetchError('could not fetch posts')
+  //     console.log(error)
+  //   }
 
-    if(data){
-      setFetchError(null)
-      setFollowers(data)
+  //   if(data){
+  //     setFetchError(null)
+  //     setFollowers(data)
       
-    }
+  //   }
 
 
-  }
+  // }
 
 
   return (
@@ -282,7 +288,7 @@ useEffect(() => {
             <hr className="border-black-600" />
             </div>
             <hr className="border-black-600" />
-            {/* {posts && (
+            {posts && (
                     <div>
                         {posts.map(post => (
                         <Chirps
@@ -291,11 +297,11 @@ useEffect(() => {
                         userId = {message}
                         likes = {likes}
                         saves = {saves}
-                        follows = {followers}
+                        // follows = {followers}
                         />
                     ))}
                     </div>
-                )} */}
+                )}
                     <h4 className='grid place-items-center text-green-500'>Hello there exploring chirps is temporarily deactivated while Chirp gets new updates thx for your patience</h4>
 
     </div>        

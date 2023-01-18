@@ -18,6 +18,8 @@ function Chirps({ post, userId, likes, saves, follows }) {
     const [save, setSave] = useState(post.saves)
     const [uuid, setId] = useState(null)
     const [username, setUsername] = useState(null)
+    const [full_name, setFull_name] = useState(null)
+    const [avatar_url, setAvatar_url] = useState(null)
     let num = 0
     const { id } = router.query
     const Crypto = require('crypto')
@@ -78,6 +80,8 @@ function Chirps({ post, userId, likes, saves, follows }) {
   
         if (data) {
           setUsername(data.username)
+          setFull_name(data.full_name)
+          setAvatar_url(data.avatar_url)
          }
       } catch (error) {
        // alert('Error loading user data!')
@@ -372,8 +376,12 @@ async function follow(){
     try {
       const updates = {
         username_follower: username,
+        full_name_follower: full_name,
+        avatar_url_follower: avatar_url,
         post_id: post.id,
-        username_following: post.username
+        username_following: post.username,
+        full_name_following: post.full_name,
+        avatar_url_following: post.avatar_url
       }
       let { error } = await supabase.from('follow').upsert(updates)
       if (error) throw error
