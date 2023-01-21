@@ -47,13 +47,13 @@ function ExploreChirps() {
       getProfile(decryptedMessage)
       fetchLikes()
       fetchSaves()
-      // fetchFollowers()
+       fetchFollowers()
       console.log(likes)
       console.log(saves)
-     // console.log(followers)
-      // if(decryptedMessage == null){
-      //   return; 
-      // }
+     console.log(followers)
+      if(decryptedMessage == null){
+        return; 
+      }
       
     }
   }, [router.isReady])
@@ -164,27 +164,27 @@ useEffect(() => {
     }
   }
 
-  // const fetchFollowers = async () => {
-  //   const { data, error } = await supabase
-  //   .from('follow')
-  //   .select('*')
+  const fetchFollowers = async () => {
+    const { data, error } = await supabase
+    .from('follow')
+    .select('*')
 
-  //   setFollowers(data)
+    setFollowers(data)
 
 
-  //   if(error) {
-  //     setFetchError('could not fetch posts')
-  //     console.log(error)
-  //   }
+    if(error) {
+      setFetchError('could not fetch posts')
+      console.log(error)
+    }
 
-  //   if(data){
-  //     setFetchError(null)
-  //     setFollowers(data)
+    if(data){
+      setFetchError(null)
+      setFollowers(data)
       
-  //   }
+    }
 
 
-  // }
+  }
 
 
   return (
@@ -297,7 +297,7 @@ useEffect(() => {
                         userId = {message}
                         likes = {likes}
                         saves = {saves}
-                        // follows = {followers}
+                         follows = {followers}
                         />
                     ))}
                     </div>

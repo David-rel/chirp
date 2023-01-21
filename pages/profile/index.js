@@ -130,7 +130,7 @@ const Profile = () => {
           console.log(error)
         } finally {
           setLoading(false)
-          alert("Chirp will be shut down till: 1pm 1/18/23, due to errors in code. Live room is still active")
+          //alert("Chirp will be shut down till: 1pm 1/18/23, due to errors in code. Live room is still active")
         }
     }
 

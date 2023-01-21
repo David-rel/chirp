@@ -37,6 +37,7 @@ function Photo({  url, size, onUpload  }) {
         // Cooper/
         // Cooper/myNameOfImage.png
         // Lindsay/myNameOfImage.png
+
     
         const filePath = `${uuidv4()}`
     
@@ -44,7 +45,8 @@ function Photo({  url, size, onUpload  }) {
           .storage
           .from('images')
           .upload(filePath, file)  // Cooper/ASDFASDFASDF uuid, taylorSwift.png -> taylorSwift.png
-    
+          console.log("test")
+
         // if(data) {
         // } else {
         //   console.log(error)
@@ -73,10 +75,10 @@ function Photo({  url, size, onUpload  }) {
         />
       ) : (
         <img 
-        // src={"https://st3.depositphotos.com/1767687/16607/v/450/depositphotos_166074422-stock-illustration-default-avatar-profile-icon-grey.jpg"}
-        // alt="Avatar"
-        // className="avatar image"
-        // style={{height: size, width: size}}
+        src={"https://st3.depositphotos.com/1767687/16607/v/450/depositphotos_166074422-stock-illustration-default-avatar-profile-icon-grey.jpg"}
+        alt="Avatar"
+        className="avatar image"
+        style={{height: size, width: size}}
         />
       )}
       <div style={{ width: size }}>
