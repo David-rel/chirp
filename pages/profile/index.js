@@ -37,62 +37,12 @@ const Profile = () => {
 
   const {id}  = router.query;
 
-  let decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
 
 
 
-  function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
-    let buff = Buffer.from(encryptedMessage, 'base64')
-    encryptedMessage = buff.toString('utf-8')
-    let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
-    return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
-  }
 
 
   // useEffect(() => {
-
-  //   const fetchFollowers = async () => {
-  //     const { data, error } = await supabaseClient
-  //     .from('follow')
-  //     .select('*')
-  
-  //     setFollowers(data)
-  //     //console.log(followers)
-
-
-  //     if(error) {
-  //       setFetchError('could not fetch posts')
-  //       console.log(error)
-  //     }
-  
-  //     if(data){
-  //       setFetchError(null)
-  //       setFollowers(data)
-        
-  //     }
-
-  //   }
-
-  //   if(followers.length == 0){
-  //     fetchFollowers()
-  //   }
-  //   else{
-  //     //console.log(followers)
-  //     for(let i = 0; i < followers.length; i++){
-  //       if(followers[i].username_following == username){
-  //         followerNumber = followerNumber + 1
-  //       }
-  //     }
-  //     for(let i = 0; i < followers.length; i++){
-  //       if(followers[i].username_follower == username){
-  //         console.log(followers[i].username_following)
-  //         followingNumber = followingNumber + 1
-  //       }
-  //     }
-  //   }
-  //   setFollowerNum(followerNumber)
-  //   setFollowingNum(followingNumber)
-
 
 
    
@@ -341,4 +291,3 @@ const Profile = () => {
 
 export default Profile;
 
-export const getServerSideProps = withPageAuth({ redirectTo: "/login" });

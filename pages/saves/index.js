@@ -40,23 +40,14 @@ function Saves() {
             }
     
             if(userId != 1){
-              decryptedMessage = decrypt_string(id, encryptionMethod, key, iv)
               //setId(decryptedMessage);
             }
-            getProfile(decryptedMessage)
+            getProfile(1)
             //getPost(id)
         }
       }, [router.isReady])
 
-      function decrypt_string(encryptedMessage, encryptionMethod, secret, iv){
-        let buff = Buffer.from(encryptedMessage, 'base64')
-        encryptedMessage = buff.toString('utf-8')
-        let decryptor = Crypto.createDecipheriv(encryptionMethod, secret, iv)
-        return decryptor.update(encryptedMessage, 'base64', 'utf8') + decryptor.final('utf8')
-      }
-
-
-
+  
     async function getProfile( userId ) {
         try {
           setLoading(true)
