@@ -70,7 +70,7 @@ function Dev() {
           onChange={(e) => setInfo(e.target.value)}
         />
 
-<button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-left xxs:mr-60 xs:mr-8" onClick={() => sendInfo({ info })}  disabled={loading}
+<button className="bg-green-600 mt-5 hover:bg-green-400 text-white font-bold py-2 px-8 rounded-full mr-8 float-left xxs:mr-60 xs:mr-8" onClick={() => null}  disabled={loading}
           >
       Give Info
         </button>

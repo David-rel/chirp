@@ -14,7 +14,7 @@ function PhotoForOthers({  url, size }) {
 
       async function downloadImage(path) {
         try {
-          const { data, error } = await supabase.storage.from('images').download(path)
+          const { data, error } = await supabase.storage.from('posts').download(path)
           if (error) {
             throw error
           }

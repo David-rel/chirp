@@ -25,35 +25,67 @@ export default function Avatar({ url, size, onUpload }) {
     }
   }
 
-  const uploadAvatar = async (event) => {
-    try {
-      setUploading(true)
-  
-      let file = event.target.files[0];
+const uploadAvatar = async (event) => {
+  try {
+    setUploading(true);
 
-  
-      
-  
-      const filePath = `${uuidv4()}`
-  
-      const { data, error } = await supabase
-        .storage
-        .from('avatars')
-        .upload(filePath, file)  // Cooper/ASDFASDFASDF uuid, taylorSwift.png -> taylorSwift.png
-  
-      // if(data) {
-      // } else {
-      //   console.log(error)
-      // }
-  
-      onUpload(filePath)
-    } catch (error) {
-      alert('Error uploading avatar!')
-      console.log(error)
-    } finally {
-      setUploading(false)
-    }
+    let file = event.target.files[0];
+
+    // Resize the image
+    const resizedFile = await resizeImage(file);
+
+    const filePath = `${uuidv4()}`;
+
+    const { data, error } = await supabase.storage
+      .from("avatars")
+      .upload(filePath, resizedFile);
+
+    onUpload(filePath);
+  } catch (error) {
+    alert("Error uploading avatar!");
+    console.log(error);
+  } finally {
+    setUploading(false);
   }
+};
+
+// Function to resize the image
+const resizeImage = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        // Set the desired width/height of the resized image
+        const maxWidth = 100; // For example, 100 pixels
+        const maxHeight = 100;
+        canvas.width = maxWidth;
+        canvas.height = maxHeight;
+        ctx.drawImage(img, 0, 0, maxWidth, maxHeight);
+        canvas.toBlob(
+          (blob) => {
+            resolve(
+              new File([blob], file.name, {
+                type: "image/jpeg",
+                lastModified: Date.now(),
+              })
+            );
+          },
+          "image/jpeg",
+          0.7
+        ); // Adjust the quality as needed
+      };
+      img.onerror = (error) => {
+        reject(error);
+      };
+    };
+  });
+};
+
 
   return (
     <div>

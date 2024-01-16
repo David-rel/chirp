@@ -34,7 +34,7 @@ function Signup() {
 
     
   return (
-    <div>
+    <div className="bg-black">
        <h1>Signup</h1> 
         {/* <Auth
             appearance={{theme: ThemeSupa}}

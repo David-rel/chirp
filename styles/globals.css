@@ -2,12 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+body{
   background-color: black;
 }
-
-
-
 
 
 
@@ -28,7 +25,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: var(--custom-font-family);
-  background-color: var(--custom-bg-color);
+  background-color: black;
 }
 
 * {
@@ -43,6 +40,7 @@ body,
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
+  background-color: black;
 }
 
 /* Grid */
@@ -304,7 +302,7 @@ button.primary,
   display: flex;
   flex-flow: row;
   border-top: var(--custom-border);
-  background-color: var(--custom-bg-color);
+  background-color: black;
 }
 .footer div {
   padding: var(--custom-spacing);

@@ -52,7 +52,7 @@ const Login = () => {
     }
     
     return (
-        <div>
+        <div className="bg-black">
           <h1>Login</h1>
         Email:
         <input
