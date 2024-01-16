@@ -76,7 +76,7 @@ const resizeImage = (file) => {
             );
           },
           "image/jpeg",
-          0.7
+          0.8
         ); // Adjust the quality as needed
       };
       img.onerror = (error) => {
